@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 
-export const Navbar = () => {
+const Navbar = () => {
   const pathname = usePathname();
 
   return (
@@ -80,3 +80,5 @@ export const Navbar = () => {
     </HeroUINavbar>
   );
 };
+
+export default Navbar;
