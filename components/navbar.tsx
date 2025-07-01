@@ -21,10 +21,10 @@ export const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
+    <HeroUINavbar maxWidth="md" position="sticky" className="container mx-auto max-w-7xl">
       {/* Desktop Nav */}
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+      <NavbarContent className="sm:basis-full" justify="start">
+        <ul className="hidden md:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -32,7 +32,7 @@ export const Navbar = () => {
                 <NextLink
                   className={clsx(
                     linkStyles({ color: isActive ? "danger" : "foreground" }),
-                    isActive && "font-medium"
+                    isActive && "font-medium "
                   )}
                   href={item.href}
                 >
