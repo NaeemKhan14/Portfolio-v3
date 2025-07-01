@@ -10,7 +10,7 @@ export default function CertificateSection() {
           Certificates
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
-          {certificates.map((cert, idx) => (
+          {certificates.slice(0, 2).map((cert, idx) => (
             <CertificateCard key={idx} {...cert} />
           ))}
         </div>

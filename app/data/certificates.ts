@@ -15,4 +15,12 @@ export const certificates = [
     link: "https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-LBBXQLLEAD.pdf",
     credential_id: 'THM-LBBXQLLEAD'
   },
+    {
+    title: "SAL1",
+    issuer: "TryHackMe",
+    date: 'ongoing',
+    logo: "/images/tryhackme.jpg",
+    link: null,
+    credential_id: ' '
+  },
 ];
