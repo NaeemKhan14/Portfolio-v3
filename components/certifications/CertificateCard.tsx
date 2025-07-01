@@ -1,15 +1,6 @@
 import Image from "next/image";
 import { Link } from "@heroui/link";
 
-interface Certificate {
-    title: string;
-    issuer: string;
-    date: string;
-    logo?: string;
-    link?: string | null;
-    credential_id?: string | null;
-}
-
 export const CertificateCard: React.FC<Certificate> = ({
     title,
     issuer,
