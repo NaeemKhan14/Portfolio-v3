@@ -10,7 +10,7 @@ export default function AboutSection() {
         
         {/* Text Block */}
         <div className="prose prose-neutral dark:prose-invert flex-1">
-          <h1 className="mb-8 text-2xl font-medium text-left">About Me</h1>
+          <h1 className="mb-8 text-2xl font-medium text-center">About Me</h1>
           <p>
             Hello, I'm Naeem Khan, a cybersecurity-focused software developer based in Berlin. After earning my Master's in Computer Science with Cybersecurity specialization from SRH Berlin University, I actively pursue industry certifications (SAL1, PT1) and participate in Capture The Flag competitions to sharpen my real-world vulnerability assessment skills against evolving threats.
           </p>
@@ -21,15 +21,15 @@ export default function AboutSection() {
         </div>
 
         {/* Avatar & Links/Buttons */}
-        <div className="flex flex-col items-center justify-start gap-4">
+        <div className="flex flex-col items-center justify-start gap-4 mt-5">
           {/* Row 1: Avatar */}
           <Image
-            src="images/profile.png"
+            src="images/pp.jpg"
             alt="Profile photo"
             className="rounded-full"
             unoptimized
-            width={250}
-            height={250}
+            width={210}
+            height={210}
             priority
           />
 
