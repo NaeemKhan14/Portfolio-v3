@@ -16,7 +16,7 @@ export default function CertificateSection() {
         </div>
         <div className="mt-6 text-center">
           <a
-            className="text-red-600 dark:text-red-400 hover:underline"
+            className="text-danger hover:underline"
             href="/certificates"
           >
             More Certificates...

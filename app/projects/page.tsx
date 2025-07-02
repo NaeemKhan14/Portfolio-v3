@@ -11,6 +11,7 @@ export default function ProjectsPage() {
   return (
     <div className="flex flex-col md:max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center">Projects</h1>
+      <Divider className="mb-8" />
       {project.map((proj) => (
         <Card 
           key={proj.id} 
@@ -28,7 +29,7 @@ export default function ProjectsPage() {
           </CardBody>
           <CardFooter className="flex justify-end">
             <Link
-              className="text-sm font-medium text-red-600 dark:text-red-400 hover:underline"
+              className="text-sm font-medium text-danger hover:underline"
               href={`/projects/${proj.slug}`}
               onClick={(e) => e.stopPropagation()} // Prevent double nav if clicking link inside card
             >

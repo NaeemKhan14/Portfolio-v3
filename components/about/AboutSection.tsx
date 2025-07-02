@@ -36,19 +36,19 @@ export default function AboutSection() {
           {/* Row 2: Social Icons */}
           <div className="flex gap-4">
             <Link isExternal aria-label="Linkedin" href={siteConfig.links.linkedin}>
-              <LinkedinIcon className="w-6 h-6 text-red-600 dark:text-red-400 hover:text-pink-300 dark:hover:text-pink-900" />
+              <LinkedinIcon className="w-6 h-6 text-danger hover:text-pink-300 dark:hover:text-pink-900" />
             </Link>
             <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-              <GithubIcon className="w-6 h-6 text-red-600 dark:text-red-400 hover:text-pink-300 dark:hover:text-pink-900" />
+              <GithubIcon className="w-6 h-6 text-danger hover:text-pink-300 dark:hover:text-pink-900" />
             </Link>
           </div>
 
           {/* Row 3: Buttons */}
           <div className="flex gap-3">
-            <a href="cv/Naeem Khan CV (Cyber Security).pdf" className="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-8 py-2 rounded-lg text-sm hover:bg-pink-300 dark:hover:bg-pink-900">
+            <a href="cv/Naeem Khan CV (Cyber Security).pdf" className="text-white bg-danger px-8 py-2 rounded-lg text-sm hover:bg-pink-300 dark:hover:bg-pink-900">
               CV 1
             </a>
-            <a href="cv/Naeem Khan CV.pdf" className="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-8 py-2 rounded-lg text-sm hover:bg-pink-300 dark:hover:bg-pink-900">
+            <a href="cv/Naeem Khan CV.pdf" className="text-white bg-danger px-8 py-2 rounded-lg text-sm hover:bg-pink-300 dark:hover:bg-pink-900">
               CV 2
             </a>
           </div>

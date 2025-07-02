@@ -10,7 +10,7 @@ export const CertificateCard: React.FC<Certificate> = ({
     credential_id,
 }) => {
     return (
-        <div className="p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-all hover:shadow-md dark:hover:shadow-gray-800/30">
+        <div className="p-6 rounded-xl shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all">
             <div className="flex items-center gap-4 mb-4">
                 {logo && (
                     <Image
@@ -28,21 +28,15 @@ export const CertificateCard: React.FC<Certificate> = ({
                     <p className="text-sm text-gray-600 dark:text-gray-300">{issuer}</p>
                 </div>
             </div>
-            {date.toLowerCase() === "ongoing" ? (
-                <span className="text-xs font-semibold text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30 px-2 py-0.5 rounded">
-                    In Progress
-                </span>
-            ) : <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{date}</p>}
-            {credential_id && (
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                    Credential ID: <span className="font-mono">{credential_id}</span>
-                </p>
-            )}
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{date}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                Credential ID: <span className="font-mono">{credential_id}</span>
+            </p>
             {link && (
                 <Link
                     href={link}
                     isExternal
-                    className="text-sm font-medium text-red-600 dark:text-red-400 hover:underline"
+                    className="text-sm font-medium text-danger hover:underline"
                 >
                     View Certificate
                 </Link>

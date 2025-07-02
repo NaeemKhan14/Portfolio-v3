@@ -22,7 +22,7 @@ export default function ExperienceCard() {
               onClick={() => setActiveTab('work')}
               className={`py-2 px-4 text-sm font-medium rounded-t-lg transition-colors ${
                 activeTab === 'work'
-                  ? 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border-b-2 border-red-500'
+                  ? 'text-white bg-danger dark:bg-danger-200 border-b-2 dark:border-red-500 border-red-600'
                   : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
               }`}
             >
@@ -32,7 +32,7 @@ export default function ExperienceCard() {
               onClick={() => setActiveTab('education')}
               className={`py-2 px-4 text-sm font-medium rounded-t-lg transition-colors ${
                 activeTab === 'education'
-                  ? 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border-b-2 border-red-500'
+                  ? 'text-white bg-danger dark:bg-danger-200 border-b-2 dark:border-red-500 border-red-600'
                   : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
               }`}
             >
@@ -44,26 +44,26 @@ export default function ExperienceCard() {
         {/* Timeline */}
         <div className="space-y-8 relative">
           {/* Vertical line */}
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-red-200 dark:bg-red-900/50 transform -translate-x-1/2"></div>
+          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-red-200 dark:bg-danger-200 transform -translate-x-1/2"></div>
           
           {activeExperiences.map((exp, index) => (
             <div key={exp.id} className="relative pl-12">
               {/* Icon container */}
-              <div className="absolute left-0 top-0 flex items-center justify-center w-8 h-8 rounded-full bg-red-100 dark:bg-red-900 ring-4 ring-white dark:ring-gray-900">
+              <div className="absolute left-0 top-0 flex items-center justify-center w-8 h-8 rounded-full bg-red-100 dark:bg-danger-200 ring-4 ring-gray-100 dark:ring-gray-900">
                 {activeTab === 'education' ? (
-                  <GraduationCap strokeWidth={1} className="w-5 h-5 text-red-700 dark:text-red-400" />
+                  <GraduationCap strokeWidth={1} className="w-5 h-5 text-danger dark:text-white" />
                 ) : (
-                  <BriefcaseBusiness  className="w-5 h-5 text-red-700 dark:text-red-400" />
+                  <BriefcaseBusiness  className="w-5 h-5 text-danger dark:text-white" />
                 )}
               </div>
               
               {/* Content Card */}
-              <div className=" p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-all hover:shadow-md dark:hover:shadow-gray-800/30">
+              <div className="p-6 rounded-xl shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all">
                 <div className="flex flex-wrap justify-between gap-2 mb-2">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                     {exp.title}
                   </h3>
-                  <span className="text-sm font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 px-2 py-1 rounded">
+                  <span className="text-sm font-medium text-white bg-danger dark:bg-danger-200 px-2 py-1 rounded">
                     {exp.period}
                   </span>
                 </div>
