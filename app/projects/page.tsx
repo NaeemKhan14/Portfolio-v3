@@ -14,11 +14,11 @@ export default function ProjectsPage() {
       <Divider className="mb-8" />
       {project.map((proj) => (
         <Card 
-          key={proj.id} 
+          key={proj.projectId} 
           className="mb-6 border border-gray-100 dark:border-gray-700 bg-black-900/100" 
           isHoverable 
           isPressable
-          onPress={() => router.push(`/projects/${proj.slug}`)}
+          onPress={() => router.push(`/projects/${proj.projectId}`)}
         >
           <CardHeader className="flex flex-col text-2xl font-semibold">
             <p>{proj.title}</p>
@@ -30,7 +30,7 @@ export default function ProjectsPage() {
           <CardFooter className="flex justify-end">
             <Link
               className="text-sm font-medium text-danger hover:underline"
-              href={`/projects/${proj.slug}`}
+              href={`/projects/${proj.projectId}`}
               onClick={(e) => e.stopPropagation()} // Prevent double nav if clicking link inside card
             >
               Read more
