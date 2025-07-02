@@ -24,7 +24,7 @@ export default function AboutSection() {
         <div className="flex flex-col items-center justify-start gap-4 mt-4 sm:mt-14 ">
           {/* Row 1: Avatar */}
           <Image
-            src="images/pp.jpg"
+            src="/images/pp.jpg"
             alt="Profile photo"
             className="rounded-full"
             unoptimized
