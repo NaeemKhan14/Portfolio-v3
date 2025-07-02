@@ -4,10 +4,10 @@ import { Link } from "@heroui/link";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
-
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { NavbarWrapper } from "@/components/navbar/navbar-wrapper";
+import { ScrollToTop } from "@/hooks/scrollToTop";
 
 export const metadata: Metadata = {
   title: {
@@ -44,9 +44,11 @@ export default function RootLayout({
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col h-screen">
             <NavbarWrapper />
+            
             <main className="container mx-auto max-w-7xl px-6 flex-grow">
               {children}
             </main>
+              <ScrollToTop />
             <footer className="w-full flex items-center justify-center py-3">
               <span className="pr-1">© 2022 All Rights Reserved. </span>
               <Link
@@ -59,6 +61,7 @@ export default function RootLayout({
                 <p className="text-primary">HeroUI</p>
               </Link>
             </footer>
+            
           </div>
         </Providers>
       </body>
