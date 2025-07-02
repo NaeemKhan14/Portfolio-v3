@@ -1,10 +1,10 @@
-import { certificates } from "@/app/data/certificates";
+import { certificates } from "@/data/certificates";
 import { CertificateCardMain } from "./CertificateCardMain";
 
 
 export default function CertificatesPage() {
   return (
-    <section className="py-6">
+    <div className="py-6">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-10">
           All Certificates
@@ -16,6 +16,6 @@ export default function CertificatesPage() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

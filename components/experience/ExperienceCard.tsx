@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { GraduationCap, BriefcaseBusiness  } from 'lucide-react';
-import { experiences } from '@/app/data/experience';
+import { experiences } from '@/data/experience';
 
 export default function ExperienceCard() {
   const [activeTab, setActiveTab] = useState<'education' | 'work'>('work');

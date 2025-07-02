@@ -1,11 +1,11 @@
-import { certificates } from "@/app/data/certificates";
+import { certificates } from "@/data/certificates";
 import { CertificateCard } from "./CertificateCard";
 
 
 export default function CertificateSection() {
   return (
     <section className="py-12">
-      <div className="max-w-3xl mx-auto px-6">
+      <div className="max-w-3xl mx-auto lg:mx-64 px-6">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           Certificates
         </h2>
