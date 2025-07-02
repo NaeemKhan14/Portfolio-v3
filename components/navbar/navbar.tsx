@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Navbar as HeroUINavbar,
@@ -21,18 +21,23 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <HeroUINavbar maxWidth="md" position="sticky" className="container mx-auto max-w-7xl md:mt-10">
+    <HeroUINavbar
+      className="container mx-auto max-w-7xl md:mt-10"
+      maxWidth="md"
+      position="sticky"
+    >
       {/* Desktop Nav */}
       <NavbarContent className="sm:basis-full" justify="start">
         <ul className="hidden sm:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => {
             const isActive = pathname === item.href;
+
             return (
               <NavbarItem key={item.href}>
                 <NextLink
                   className={clsx(
                     linkStyles({ color: isActive ? "danger" : "foreground" }),
-                    isActive
+                    isActive,
                   )}
                   href={item.href}
                 >
@@ -45,7 +50,10 @@ const Navbar = () => {
       </NavbarContent>
 
       {/* Desktop Right Content */}
-      <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
+      <NavbarContent
+        className="hidden sm:flex basis-1/5 sm:basis-full"
+        justify="end"
+      >
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>
@@ -62,13 +70,14 @@ const Navbar = () => {
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => {
             const isActive = pathname === item.href;
+
             return (
               <NavbarMenuItem key={`${item.href}-${index}`}>
                 <Link
+                  className={clsx(isActive && "font-medium")}
+                  color={isActive ? "danger" : "foreground"}
                   href={item.href}
                   size="lg"
-                  color={isActive ? "danger" : "foreground"}
-                  className={clsx(isActive && "font-medium")}
                 >
                   {item.label}
                 </Link>

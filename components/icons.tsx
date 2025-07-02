@@ -2,7 +2,6 @@ import * as React from "react";
 
 import { IconSvgProps } from "@/types";
 
-
 export const LinkedinIcon: React.FC<IconSvgProps> = ({
   size = 24,
   width,
@@ -92,5 +91,3 @@ export const SunFilledIcon = ({
     </g>
   </svg>
 );
-
-
