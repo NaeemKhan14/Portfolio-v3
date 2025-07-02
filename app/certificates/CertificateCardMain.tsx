@@ -1,5 +1,7 @@
-import Image from "next/image";
-import { Link } from "@heroui/link";
+'use client'
+
+import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image } from "@heroui/react";
+import { useRouter } from "next/navigation";
 
 export const CertificateCardMain: React.FC<Certificate> = ({
   title,
@@ -9,11 +11,18 @@ export const CertificateCardMain: React.FC<Certificate> = ({
   link,
   credential_id,
 }) => {
+  const router = useRouter();
+
   return (
-    <div className="relative group overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-700 dark:hover:shadow-gray-800/30 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col h-full">
-      {/* Background badge */}
-      <div className="absolute right-4 top-4 opacity-10 group-hover:opacity-20 transition-all">
-        {logo && (
+    <Card
+      className="relative mb-6 hover:shadow-gray-400 hover:shadow-md bg-black-900/100 dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all group"
+      isHoverable
+      isPressable
+      onPress={() => link != null ? router.push(link) : ''}
+    >
+      {/* Large logo with hover effect */}
+      {logo && (
+        <div className="absolute right-4 top-4 opacity-10 group-hover:opacity-70 transition-all duration-400 transform group-hover:scale-110">
           <Image
             src={logo}
             alt={`${issuer} logo`}
@@ -21,11 +30,10 @@ export const CertificateCardMain: React.FC<Certificate> = ({
             height={80}
             className="rounded-md"
           />
-        )}
-      </div>
-
-      {/* Top Section */}
-      <div className="flex items-start gap-4 mb-4 z-10 relative">
+        </div>
+      )}
+      <CardHeader className="flex items-center gap-4">
+        {/* Logo aligned to the left */}
         {logo && (
           <Image
             src={logo}
@@ -35,43 +43,46 @@ export const CertificateCardMain: React.FC<Certificate> = ({
             className="rounded-md flex-shrink-0"
           />
         )}
-        <div className="flex-grow">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white leading-tight line-clamp-2 min-h-[2.5rem]">
-            {title}
-          </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 truncate">
-            {issuer}
-          </p>
-        </div>
-      </div>
 
-      {/* Bottom Section (always at bottom) */}
-      <div className="mt-auto z-10 relative">
-        {/* Date */}
-        <div className="mb-2">
-          <span className="inline-block text-xs font-medium px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+        {/* Centered title and issuer that takes remaining space */}
+        <div className="flex-1 flex flex-col items-center text-center">
+          <p className="text-xl font-bold">{title}</p>
+          <p className="text-small text-default-500">{issuer}</p>
+        </div>
+
+        {/* Empty div to balance the logo on the left */}
+        <div className="w-12 flex-shrink-0"></div>
+      </CardHeader>
+
+      <Divider />
+
+      <CardBody className="text-center">
+        <div className="mb-2 flex justify-center">
+          <span className="inline-block text-xs font-medium px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
             {date.toLowerCase() === "ongoing" ? "In Progress" : date}
           </span>
         </div>
-
-        {/* Credential ID */}
         {credential_id && (
-          <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 truncate">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
             Credential ID: <span className="font-mono">{credential_id}</span>
           </p>
         )}
+      </CardBody>
 
-        {/* Link */}
+      <Divider />
+
+      <CardFooter className="justify-center">
         {link && (
           <Link
             href={link}
             isExternal
-            className="inline-block text-sm font-medium text-red-600 dark:text-red-400 hover:underline"
+            className="text-sm font-medium text-danger hover:underline"
+            onClick={(e) => e.stopPropagation()} // Prevent card navigation when clicking link
           >
             View Certificate →
           </Link>
         )}
-      </div>
-    </div>
+      </CardFooter>
+    </Card>
   );
 };

@@ -10,7 +10,7 @@ export const CertificateCard: React.FC<Certificate> = ({
     credential_id,
 }) => {
     return (
-        <div className="p-6 rounded-xl shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all">
+        <div className="p-6 rounded-xl hover:shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all">
             <div className="flex items-center gap-4 mb-4">
                 {logo && (
                     <Image
@@ -38,7 +38,7 @@ export const CertificateCard: React.FC<Certificate> = ({
                     isExternal
                     className="text-sm font-medium text-danger hover:underline"
                 >
-                    View Certificate
+                    View Certificate →
                 </Link>
             )}
         </div>
