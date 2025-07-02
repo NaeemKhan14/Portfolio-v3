@@ -1,38 +1,38 @@
+'use client'
+
 import { posts } from '@/data/blog_posts';
 import { notFound } from 'next/navigation';
-import { Divider } from '@heroui/react';
 
-interface Props {
-  params: { postId: string };
-}
+import { use } from "react";
+type PageParams = {
+  params: {
+    postId: string;
+  };
+};
 
-export default function BlogPostDetailPage({ params }: Props) {
-  const post = posts.find((p) => p.postID.toString() === params.postId);
+export default function BlogPostPage({ params }: PageParams) {
+  
+  // Properly unwrap the params Promise with type assertion
+  const unwrappedParams = use<{ postId: string }>(params);
+  const post = posts.find((p) => p.postID === Number(unwrappedParams.postId));
+
 
   if (!post) return notFound();
 
   return (
-    <div className="flex flex-col md:max-w-2xl mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-2 text-center">{post.title}</h1>
-      <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-6">
+    <div className="max-w-2xl mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+      <p className="text-sm text-gray-500 mb-6">
         {post.date} • {post.category}
       </p>
-      <Divider className="mb-6" />
-      {post.images && post.images.length > 0 && (
+      {post.images?.length > 0 && (
         <div className="flex flex-col gap-4 mb-6">
-          {post.images.map((imgUrl, idx) => (
-            <img
-              key={idx}
-              src={imgUrl}
-              alt={`Image ${idx + 1}`}
-              className="rounded-lg shadow-md"
-            />
+          {post.images.map((img, i) => (
+            <img key={i} src={img} alt={`img-${i}`} className="rounded" />
           ))}
         </div>
       )}
-      <article className="prose dark:prose-invert">
-        <p>{post.content}</p>
-      </article>
+      <div className="prose dark:prose-invert">{post.content}</div>
     </div>
   );
 }
