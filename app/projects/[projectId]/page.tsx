@@ -45,7 +45,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           href={proj.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-red-600 dark:text-red-400 hover:underline"
+          className="text-danger hover:underline"
         >
           View on GitHub →
         </Link>

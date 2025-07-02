@@ -58,7 +58,7 @@ export default function ExperienceCard() {
               </div>
               
               {/* Content Card */}
-              <div className="p-6 rounded-xl shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all">
+              <div className="p-6 rounded-xl hover:shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all">
                 <div className="flex flex-wrap justify-between gap-2 mb-2">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                     {exp.title}

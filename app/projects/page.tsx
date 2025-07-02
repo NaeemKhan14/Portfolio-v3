@@ -15,7 +15,7 @@ export default function ProjectsPage() {
       {project.map((proj) => (
         <Card 
           key={proj.projectId} 
-          className="mb-6 border border-gray-100 dark:border-gray-700 bg-black-900/100" 
+          className="mb-6 bg-black-900/100 hover:shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all" 
           isHoverable 
           isPressable
           onPress={() => router.push(`/projects/${proj.projectId}`)}
