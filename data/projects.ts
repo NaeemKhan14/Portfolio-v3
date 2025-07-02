@@ -21,7 +21,7 @@ export const project = [
         images: [
             "/images/athena/1.1.png",
             "/images/athena/1.2.png",
-            "/images/2.1.png",
+            "/images/athena/2.1.png",
             "/images/athena/2.2.png",
             "/images/athena/3.1.png",
             "/images/athena/3.2.png",
