@@ -1,6 +1,7 @@
 'use client'
 
 import { posts } from '@/data/blog_posts';
+import { Divider } from '@heroui/react';
 import { notFound } from 'next/navigation';
 
 import { use } from "react";
@@ -23,8 +24,10 @@ export default function BlogPostPage({ params }: PageParams) {
     <div className="max-w-2xl mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
       <p className="text-sm text-gray-500 mb-6">
-        {post.date} • {post.category}
+        <span className='text-sm font-medium text-white bg-danger dark:bg-danger-200 px-2 py-1 rounded'>{post.category}</span>
+        <span> {post.date} </span>
       </p>
+      <Divider className='mb-8' />
       {post.images?.length > 0 && (
         <div className="flex flex-col gap-4 mb-6">
           {post.images.map((img, i) => (

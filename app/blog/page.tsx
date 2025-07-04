@@ -22,19 +22,22 @@ export default function BlogPage() {
         >
           <CardHeader className="flex flex-col text-2xl font-semibold">
             <p>{post.title}</p>
-            <p className="text-sm font-normal text-gray-500 dark:text-gray-400 mt-1">
-              {post.date} • {post.category}
-            </p>
+            
           </CardHeader>
           <Divider />
           <CardBody className="w-full text-center">
             <p>{post.short_desc}</p>
           </CardBody>
           <Divider />
-          <CardFooter className="flex justify-end">
+          <CardFooter className="flex justify-between">
+            <p className='text-sm font-medium text-white bg-danger dark:bg-danger-200 px-2 py-1 rounded'>{post.category}</p>
+            <p className="text-sm font-normal text-gray-500 dark:text-gray-400 mt-1">
+              {post.date}
+            </p>
             <Link
               className="text-sm font-medium text-danger hover:underline"
               href={`/blog/${post.postID}`}
+              onClick={(e) => e.stopPropagation()} // Prevent double nav if clicking link inside card
             >
               Read more
             </Link>
