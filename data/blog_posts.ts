@@ -1,6 +1,6 @@
 export const posts = [
     {
-        postID: 1,
+        post_id: 1,
         title: "Blog is under construction",
         short_desc: "Backend implementation is WIP",
         content: "I plan on using this blog mainly for CTF writeups.",

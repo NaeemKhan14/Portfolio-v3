@@ -1,22 +1,18 @@
-'use client'
-
 import { posts } from '@/data/blog_posts';
 import { Divider } from '@heroui/react';
 import { notFound } from 'next/navigation';
 
-import { use } from "react";
 type PageParams = {
   params: {
-    postId: string;
+    post_id: string;
   };
 };
 
-export default function BlogPostPage({ params }: PageParams) {
-  
-  // Properly unwrap the params Promise with type assertion
-  const unwrappedParams = use<{ postId: string }>(params);
-  const post = posts.find((p) => p.postID === Number(unwrappedParams.postId));
+export default async function BlogPostPage({ params }: PageParams) {
 
+  const post_id = (await params).post_id;
+  
+  const post = posts.find(post_elem => post_elem.post_id === Number(post_id));
 
   if (!post) return notFound();
 
