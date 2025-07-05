@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 import Image from "next/image";
-import { GithubIcon, LinkedinIcon } from "../icons";
+import { GithubIcon, LinkedinIcon } from "../ui/icons";
 import { Link } from "@heroui/link";
 
 export default function AboutSection() {

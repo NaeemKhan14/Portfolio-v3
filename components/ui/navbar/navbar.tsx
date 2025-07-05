@@ -15,7 +15,7 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
 import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
+import { ThemeSwitch } from "../theme-switch";
 
 const Navbar = () => {
   const pathname = usePathname();

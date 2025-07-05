@@ -1,9 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import * as nextNavigation from 'next/navigation';
 import { posts } from '@/data/blog_posts';
 import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
 import BlogPostPage from './page';
-import React, { useState, useEffect } from 'react';
 
 
 jest.mock('next/navigation', () => ({

@@ -6,9 +6,10 @@ import clsx from "clsx";
 import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import { NavbarWrapper } from "@/components/navbar/navbar-wrapper";
+import { NavbarWrapper } from "@/components/ui/navbar/navbar-wrapper";
 import { ScrollToTop } from "@/hooks/scrollToTop";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+
 
 export const metadata: Metadata = {
   title: {
