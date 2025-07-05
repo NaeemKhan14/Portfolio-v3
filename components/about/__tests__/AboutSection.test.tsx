@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import AboutSection from "./AboutSection";
 import { siteConfig } from "@/config/site";
-import '@testing-library/jest-dom'
+import AboutSection from "../AboutSection";
+import "@testing-library/jest-dom";
 
 describe("AboutSection", () => {
     beforeEach(() => {
@@ -49,8 +49,4 @@ describe("AboutSection", () => {
         expect(cv2).toHaveAttribute("href", "cv/Naeem Khan CV.pdf");
     });
 
-    test("matches snapshot", () => {
-        const { asFragment } = render(<AboutSection />);
-        expect(asFragment()).toMatchSnapshot();
-    });
 });

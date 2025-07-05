@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { experiences } from '@/data/experience';
-import ExperienceCard from './ExperienceCard';
-import '@testing-library/jest-dom';
+import ExperienceCard from '../ExperienceCard';
 
 describe('ExperienceCard', () => {
     it('renders with default active tab "work" and shows work experiences', () => {

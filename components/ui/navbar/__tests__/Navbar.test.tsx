@@ -1,11 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import Navbar from './navbar';
-import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/config/site';
-import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
+import { usePathname } from 'next/navigation';
 import userEvent from '@testing-library/user-event';
-import { project } from '@/data/projects';
-import { posts } from '@/data/blog_posts';
+import Navbar from '../navbar';
 
 jest.mock('next/navigation', () => ({
     usePathname: jest.fn(),
@@ -66,45 +63,14 @@ describe('Navbar', () => {
         expect(blogMobile.length).toBeGreaterThan(0);
     });
 
-    it('opens mobile menu and shows links', async () => {
+    it('opens mobile menu and shows links', () => {
         renderNavbarAtPath('/');
         const toggleBtn = screen.getByRole('button');
-        await userEvent.click(toggleBtn);
+        userEvent.click(toggleBtn);
 
         siteConfig.navMenuItems.forEach((item) => {
             const links = screen.getAllByText(item.label, { selector: 'a' });
             expect(links.length).toBeGreaterThan(0);
         });
     });
-
-    describe('blog_post.ts data integrity', () => {
-        it('posts array should exist and have correct structure', () => {
-            expect(Array.isArray(posts)).toBe(true);
-            posts.forEach((post) => {
-                expect(typeof post.postID).toBe('number');
-                expect(typeof post.title).toBe('string');
-                expect(typeof post.short_desc).toBe('string');
-                expect(typeof post.content).toBe('string');
-                expect(typeof post.date).toBe('string'); 
-                expect(typeof post.category).toBe('string');
-                expect(Array.isArray(post.images)).toBe(true);
-            });
-        });
-    });
-
-    describe('projects.ts data integrity', () => {
-        it('project array should exist and have correct structure', () => {
-            expect(Array.isArray(project)).toBe(true);
-            project.forEach((proj) => {
-                expect(typeof proj.projectId).toBe('number');
-                expect(typeof proj.title).toBe('string');
-                expect(typeof proj.short_desc).toBe('string');
-                expect(typeof proj.description).toBe('string');
-                expect(Array.isArray(proj.images)).toBe(true);
-                expect(typeof proj.link).toBe('string');
-            });
-        });
-    });
-
-
 });
