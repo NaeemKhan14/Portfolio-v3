@@ -14,11 +14,11 @@ export default function BlogPage() {
       <Divider className="mb-8" />
       {posts.map((post) => (
         <Card
-          key={post.postID}
+          key={post.post_id}
           className="mb-6 bg-black-900/100 hover:shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all"
           isHoverable
           isPressable
-          onPress={() => router.push(`/blog/${post.postID}`)}
+          onPress={() => router.push(`/blog/${post.post_id}`)}
         >
           <CardHeader className="flex flex-col text-2xl font-semibold">
             <p>{post.title}</p>
@@ -36,7 +36,7 @@ export default function BlogPage() {
             </p>
             <Link
               className="text-sm font-medium text-danger hover:underline"
-              href={`/blog/${post.postID}`}
+              href={`/blog/${post.post_id}`}
               onClick={(e) => e.stopPropagation()} // Prevent double nav if clicking link inside card
             >
               Read more
