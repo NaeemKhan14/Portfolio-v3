@@ -26,7 +26,7 @@ export default function AboutSection() {
           <Image
             src="/images/pp.jpg"
             alt="Profile photo"
-            className="rounded-full"
+            className="rounded-3xl border-separate border-danger-300 border-2"
             unoptimized
             width={210}
             height={210}
