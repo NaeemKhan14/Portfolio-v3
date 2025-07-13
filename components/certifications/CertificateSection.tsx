@@ -6,7 +6,7 @@ import { Divider } from "@heroui/react";
 export default function CertificateSection() {
   return (
     <section className="py-8">
-      <div className="max-w-3xl mx-auto lg:mx-64 px-6 mb-10">
+      <div className="max-w-3xl mx-auto px-6 mb-10">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           Certificates
         </h2>
@@ -17,7 +17,7 @@ export default function CertificateSection() {
         </div>
         <div className="mt-3 text-center">
           <a
-            className="text-white bg-danger px-8 py-4 rounded-lg text-sm hover:bg-pink-300 dark:hover:bg-pink-900"
+            className="text-center text-sm bg-danger hover:bg-pink-300 dark:hover:bg-pink-900 text-white px-4 py-4 rounded-lg transition-colors"
             href="/certificates"
           >
             More Certificates...

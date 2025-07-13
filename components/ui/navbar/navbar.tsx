@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <HeroUINavbar
-      className="container mx-auto max-w-7xl md:mt-10"
+      className="container max-w-3xl mx-auto md:mt-5"
       maxWidth="md"
       position="sticky"
     >

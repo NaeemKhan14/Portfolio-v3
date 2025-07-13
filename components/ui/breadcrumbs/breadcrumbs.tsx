@@ -1,4 +1,3 @@
-// components/breadcrumbs.tsx
 'use client'
 
 import { Breadcrumbs as HeroBreadcrumbs, BreadcrumbItem } from '@heroui/react'
@@ -10,7 +9,7 @@ export const Breadcrumbs = () => {
   const pathSegments = pathname.split('/').filter(Boolean)
 
   return (
-    <HeroBreadcrumbs className="container max-w-3xl p-8 pb-2 mx-auto ">
+    <HeroBreadcrumbs className="container max-w-3xl p-8 pb-8 mx-auto ">
       <BreadcrumbItem>
         <Link href="/" className={pathname === '/' ? 'font-bold text-danger' : ''}>
           Home
