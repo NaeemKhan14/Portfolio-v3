@@ -1,5 +1,5 @@
+import { CertificateCard } from "@/components/certifications/CertificateCard";
 import { certificates } from "@/data/certificates";
-import { CertificateCardMain } from "./CertificateCardMain";
 import { Divider } from "@heroui/react";
 
 
@@ -14,7 +14,7 @@ export default function CertificatesPage() {
 
         <div className="grid grid-cols-1 gap-8">
           {certificates.map((cert, idx) => (
-            <CertificateCardMain key={idx} {...cert} />
+            <CertificateCard key={idx} {...cert} />
           ))}
         </div>
       </div>
