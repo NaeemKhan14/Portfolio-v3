@@ -1,7 +1,7 @@
 export const certificates = [
   {
     id: 1,
-    title: "Security Analyst Level 1 Certification",
+    title: "Security Analyst Level 1 (SAL1)",
     issuer: "TryHackMe",
     type: "certification",
     date: 'July 2025',
