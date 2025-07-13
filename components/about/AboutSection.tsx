@@ -2,11 +2,12 @@ import { siteConfig } from "@/config/site";
 import Image from "next/image";
 import { GithubIcon, LinkedinIcon } from "../ui/icons";
 import { Link } from "@heroui/link";
+import { Divider } from "@heroui/react";
 
 export default function AboutSection() {
   return (
-    <section className="flex flex-col items-center justify-center py-8 md:py-10">
-      <div className="flex flex-col-reverse lg:flex-row max-w-3xl w-full px-8 gap-8">
+    <section className="flex flex-col items-center justify-center py-8">
+      <div className="flex flex-col-reverse lg:flex-row max-w-3xl w-full px-8 gap-8 mb-10">
         
         {/* Text Block */}
         <div className="prose prose-neutral text-xl dark:prose-invert flex-1">
@@ -54,6 +55,7 @@ export default function AboutSection() {
           </div>
         </div>
       </div>
+      <Divider className="max-w-3xl mx-auto"/>
     </section>
   );
 }

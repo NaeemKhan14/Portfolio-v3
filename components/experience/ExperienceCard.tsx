@@ -3,14 +3,15 @@
 import { useState } from 'react';
 import { GraduationCap, BriefcaseBusiness } from 'lucide-react';
 import { experiences } from '@/data/experience';
+import { Divider } from '@heroui/react';
 
 export default function ExperienceCard() {
   const [activeTab, setActiveTab] = useState<'education' | 'work'>('work');
   const activeExperiences = experiences[activeTab];
 
   return (
-    <section className="py-12">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className='py-8'>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           Education & Experience
         </h2>
@@ -80,6 +81,7 @@ export default function ExperienceCard() {
           ))}
         </div>
       </div>
+      <Divider className="max-w-3xl mx-auto"/>
     </section>
   );
 }
