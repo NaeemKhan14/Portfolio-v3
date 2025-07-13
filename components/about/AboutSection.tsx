@@ -1,61 +1,91 @@
+'use client'
+
 import { siteConfig } from "@/config/site";
 import Image from "next/image";
 import { GithubIcon, LinkedinIcon } from "../ui/icons";
 import { Link } from "@heroui/link";
-import { Divider } from "@heroui/react";
+import { Chip, Divider } from "@heroui/react";
 
 export default function AboutSection() {
   return (
-    <section className="flex flex-col items-center justify-center py-8">
-      <div className="flex flex-col-reverse lg:flex-row max-w-3xl w-full px-8 gap-8 mb-10">
-        
-        {/* Text Block */}
-        <div className="prose prose-neutral text-xl dark:prose-invert flex-1">
-          <h1 className="mb-8 text-2xl font-medium text-center">About Me</h1>
-          <p>
-            Hello, I'm Naeem Khan, a cybersecurity-focused software developer based in Berlin. After earning my Master's in Computer Science with Cybersecurity specialization from SRH Berlin University, I actively pursue industry certifications (SAL1, PT1) and participate in Capture The Flag competitions to sharpen my real-world vulnerability assessment skills against evolving threats.
-          </p>
-          <br />
-          <p>
-            My cybersecurity expertise is reinforced by two years of software development experience in Dubai, where I engineered full-stack solutions with Python, Django, PostgreSQL, and Angular. This dual perspective enables me to build inherently secure systems from the ground up; transforming security theory into resilient applications that withstand modern cyber risks.
-          </p>
-        </div>
-
-        {/* Avatar & Links/Buttons */}
-        <div className="flex flex-col items-center justify-start gap-4 mt-4 sm:mt-14 ">
-          {/* Row 1: Avatar */}
-          <Image
-            src="/images/pp.jpg"
-            alt="Profile photo"
-            className="rounded-3xl border-separate border-danger-300 border-2"
-            unoptimized
-            width={210}
-            height={210}
-            priority
-          />
-
-          {/* Row 2: Social Icons */}
-          <div className="flex gap-4">
-            <Link isExternal aria-label="Linkedin" href={siteConfig.links.linkedin}>
-              <LinkedinIcon className="w-6 h-6 text-danger hover:text-pink-300 dark:hover:text-pink-900" />
-            </Link>
-            <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-              <GithubIcon className="w-6 h-6 text-danger hover:text-pink-300 dark:hover:text-pink-900" />
-            </Link>
+    <section className="py-8">
+      <div className="max-w-3xl mx-auto px-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center">
+          {/* Profile Section */}
+          <div className="flex flex-col items-center space-y-6">
+            <div className="relative">
+              <Image
+                src="/images/pp.jpg"
+                alt="Profile photo"
+                className="rounded-2xl border-2 border-warning-300 dark:border-warning/50 shadow-sm"
+                width={200}
+                height={200}
+                priority
+                unoptimized
+              />
+              <div className="text-center">
+                <Chip color="warning" variant="solid" className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-sm font-medium text-pink-700 dark:text-danger-300">
+                  SOC Analyst & Software Dev
+                </Chip>
+              </div>
+            </div>
+            
+            <div className="flex flex-col items-center w-full space-y-4">
+              <div className="flex space-x-4">
+                <Link 
+                  isExternal 
+                  aria-label="Linkedin" 
+                  href={siteConfig.links.linkedin}
+                  className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-125 transition-transform"
+                >
+                  <LinkedinIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                </Link>
+                <Link 
+                  isExternal 
+                  aria-label="Github" 
+                  href={siteConfig.links.github}
+                  className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-125 transition-transform"
+                >
+                  <GithubIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                </Link>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-1 gap-3 w-full">
+                <a 
+                  href="cv/Naeem Khan CV (Cyber Security).pdf" 
+                  className="text-center text-sm bg-danger hover:bg-pink-300 dark:hover:bg-pink-900 text-white py-2.5 rounded transition-colors"
+                >
+                  Security CV
+                </a>
+                <a 
+                  href="cv/Naeem Khan CV.pdf" 
+                  className="text-center text-sm bg-danger hover:bg-pink-300 dark:hover:bg-pink-900 text-white py-2.5 rounded transition-colors"
+                >
+                  Developer CV
+                </a>
+              </div>
+            </div>
           </div>
 
-          {/* Row 3: Buttons */}
-          <div className="flex gap-3">
-            <a href="cv/Naeem Khan CV (Cyber Security).pdf" className="text-white bg-danger px-8 py-2 rounded-lg text-sm hover:bg-pink-300 dark:hover:bg-pink-900">
-              CV 1
-            </a>
-            <a href="cv/Naeem Khan CV.pdf" className="text-white bg-danger px-8 py-2 rounded-lg text-sm hover:bg-pink-300 dark:hover:bg-pink-900">
-              CV 2
-            </a>
+          {/* Content Section */}
+          <div className="text-center lg:text-left">
+            <h1 className="text-3xl font-bold mb-4 text-danger">
+              Naeem Khan
+            </h1>
+            <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+              Cybersecurity specialist with software development expertise, focused on building 
+              secure systems and defending against modern threats. Combining SOC analyst certification 
+              with engineering experience to create resilient applications.
+            </p>
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+              <Chip color="danger" variant="bordered">Software Development</Chip>
+              <Chip color="danger" variant="bordered">SOC Analyst L1</Chip>
+              <Chip color="danger" variant="bordered">CTF Competitor</Chip>
+            </div>
           </div>
         </div>
       </div>
-      <Divider className="max-w-3xl mx-auto"/>
+      <Divider className="max-w-3xl mx-auto" />
     </section>
   );
 }
