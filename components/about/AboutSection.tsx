@@ -55,13 +55,13 @@ export default function AboutSection() {
                   href="cv/Naeem Khan CV (Cyber Security).pdf" 
                   className="text-center text-sm bg-danger hover:bg-pink-300 dark:hover:bg-pink-900 text-white py-2.5 rounded transition-colors"
                 >
-                  Security CV
+                  Cybersecurity CV
                 </a>
                 <a 
                   href="cv/Naeem Khan CV.pdf" 
                   className="text-center text-sm bg-danger hover:bg-pink-300 dark:hover:bg-pink-900 text-white py-2.5 rounded transition-colors"
                 >
-                  Developer CV
+                  Software Developer CV
                 </a>
               </div>
             </div>
