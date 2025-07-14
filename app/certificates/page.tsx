@@ -1,11 +1,12 @@
 import { CertificateCard } from "@/components/certifications/CertificateCard";
-import { certificates } from "@/data/certificates";
+import prisma from "@/lib/prisma";
 import { Divider } from "@heroui/react";
 
 
-export default function CertificatesPage() {
+export default async function CertificatesPage() {
+  const certificates = await prisma.certificate.findMany();
+
   return (
-      // <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col md:max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center">
           Certificates

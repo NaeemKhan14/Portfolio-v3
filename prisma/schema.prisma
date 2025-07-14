@@ -9,8 +9,8 @@ datasource db {
 }
 
 model Project {
-  id          Int    @id @default(autoincrement())
-  slug        String @unique
+  id          Int     @id @default(autoincrement())
+  slug        String  @unique
   title       String
   short_desc  String
   content     String
@@ -18,4 +18,15 @@ model Project {
   github_link String?
 
   @@index(slug)
+}
+
+model Certificate {
+  id            Int    @id @default(autoincrement())
+  credential_id String
+  title         String
+  issuer        String
+  type          String
+  date          String
+  logo          String
+  link          String
 }

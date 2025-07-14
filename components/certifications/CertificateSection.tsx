@@ -1,9 +1,14 @@
-import { certificates } from "@/data/certificates";
 import { CertificateCard } from "./CertificateCard";
 import { Divider } from "@heroui/react";
+import prisma from "@/lib/prisma";
 
 
-export default function CertificateSection() {
+export default async function CertificateSection() {
+  const certificates = await prisma.certificate.findMany({
+    orderBy: { id: "asc" },
+    take: 2
+  });
+
   return (
     <section className="py-8">
       <div className="max-w-3xl mx-auto px-6 mb-10">
@@ -11,7 +16,7 @@ export default function CertificateSection() {
           Certificates
         </h2>
         <div className="grid gap-6 md:gap-2">
-          {certificates.slice(0, 2).map((cert, idx) => (
+          {certificates.map((cert, idx) => (
             <CertificateCard key={idx} {...cert} />
           ))}
         </div>

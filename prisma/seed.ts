@@ -43,10 +43,52 @@ const projectData: Prisma.ProjectCreateInput[] = [
     },
 ];
 
+const certificateData: Prisma.CertificateCreateInput[] = [
+    {
+        credential_id: '687244bbc0656d09d88758bb',
+        title: "Security Analyst Level 1 (SAL1)",
+        issuer: "TryHackMe",
+        type: "certification",
+        date: 'July 2025',
+        logo: "/images/certificate_logos/tryhackme.jpg",
+        link: "https://www.credly.com/badges/ca1d9fb6-8479-4495-ac4c-c194a80aec6f/public_url"
+    },
+    {
+        credential_id: 'THM-6VPCGUTIY8',
+        title: "SOC Level 1",
+        issuer: "TryHackMe",
+        type: "certificate",
+        date: 'July 2025',
+        logo: "/images/certificate_logos/tryhackme.jpg",
+        link: "https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-6VPCGUTIY8.pdf"
+    },
+    {
+        credential_id: 'THM-LBBXQLLEAD',
+        title: "Cyber Security 101",
+        issuer: "TryHackMe",
+        type: "certificate",
+        date: "June 2025",
+        logo: "/images/certificate_logos/tryhackme.jpg",
+        link: "https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-LBBXQLLEAD.pdf"
+    },
+    {
+        credential_id: 'THM-0IQ89TVQIC',
+        title: "Pre-Security",
+        issuer: "TryHackMe",
+        type: "certificate",
+        date: "June 2025",
+        logo: "/images/certificate_logos/tryhackme.jpg",
+        link: "https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-0IQ89TVQIC.pdf"
+    },
+]
 export async function main() {
-  for (const project of projectData) {
-    await prisma.project.create({ data: project });
-  }
+    for (const project of projectData) {
+        await prisma.project.create({ data: project });
+    }
+
+    for (const certificate of certificateData) {
+        await prisma.certificate.create({ data: certificate });
+    }
 }
 
 main();
