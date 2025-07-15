@@ -54,7 +54,7 @@ export const CertificateCard: React.FC<Certificate> = ({
           alt={`${issuer} logo`}
           width={48}
           height={48}
-          className="rounded-md flex-shrink-0"
+          className="rounded-md shrink-0"
         />
 
         {/* Centered title and issuer that takes remaining space */}
@@ -66,7 +66,7 @@ export const CertificateCard: React.FC<Certificate> = ({
         </div>
 
         {/* Empty div to balance the logo on the left */}
-        <div className="w-12 flex-shrink-0"></div>
+        <div className="w-12 shrink-0"></div>
       </CardHeader>
 
       <Divider className={isCertification ? 'bg-warning-500 dark:bg-warning-400' : ''} />

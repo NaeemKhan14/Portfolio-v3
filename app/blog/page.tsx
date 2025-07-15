@@ -15,7 +15,7 @@ export default function BlogPage() {
       {posts.map((post) => (
         <Card
           key={post.post_id}
-          className="mb-6 bg-black-900/100 hover:shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-sm border border-gray-500 dark:border-gray-700 transition-all"
+          className="mb-6 bg-black-900/100 hover:shadow-gray-400 hover:shadow-md dark:hover:shadow-white dark:hover:shadow-xs border border-gray-500 dark:border-gray-700 transition-all"
           isHoverable
           isPressable
           onPress={() => router.push(`/blog/${post.post_id}`)}
