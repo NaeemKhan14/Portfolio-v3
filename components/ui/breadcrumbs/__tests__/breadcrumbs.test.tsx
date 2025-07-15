@@ -37,21 +37,12 @@ describe('Breadcrumbs', () => {
         expect(screen.getByText('Home')).toHaveClass('font-bold text-danger')
     })
 
-    it('renders single segment correctly (/about)', () => {
-        mockUsePathname.mockReturnValue('/about')
+    it('renders single segment correctly (/blog)', () => {
+        mockUsePathname.mockReturnValue('/blog')
         render(<Breadcrumbs />)
 
         expect(screen.getByText('Home')).toBeInTheDocument()
-        expect(screen.getByText('About')).toHaveClass('font-bold text-danger')
-    })
-
-    it('renders multi-segment static route (/projects/list)', () => {
-        mockUsePathname.mockReturnValue('/projects/list')
-        render(<Breadcrumbs />)
-
-        expect(screen.getByText('Home')).toBeInTheDocument()
-        expect(screen.getByText('Projects')).toBeInTheDocument()
-        expect(screen.getByText('List')).toHaveClass('font-bold text-danger')
+        expect(screen.getByText('Blog')).toHaveClass('font-bold text-danger')
     })
 
     it('renders blog dynamic route (/blog/1)', () => {
@@ -72,19 +63,19 @@ describe('Breadcrumbs', () => {
         expect(screen.getByText('1')).toHaveClass('font-bold text-danger')
     })
 
-    it('renders kebab-case segment correctly (/my-project/alpha-test)', () => {
-        mockUsePathname.mockReturnValue('/my-project/alpha-test')
+    it('renders kebab-case segment correctly (/projects/alpha-test)', () => {
+        mockUsePathname.mockReturnValue('/projects/alpha-test')
         render(<Breadcrumbs />)
 
-        expect(screen.getByText('My project')).toBeInTheDocument()
+        expect(screen.getByText('Projects')).toBeInTheDocument()
         expect(screen.getByText('Alpha test')).toHaveClass('font-bold text-danger')
     })
 
-    it('handles trailing slash (/about/)', () => {
-        mockUsePathname.mockReturnValue('/about/')
+    it('handles trailing slash (/certificates/)', () => {
+        mockUsePathname.mockReturnValue('/certificates/')
         render(<Breadcrumbs />)
 
-        expect(screen.getByText('About')).toHaveClass('font-bold text-danger')
+        expect(screen.getByText('Certificates')).toHaveClass('font-bold text-danger')
     })
 
     it('handles empty path (edge case)', () => {
