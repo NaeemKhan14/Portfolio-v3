@@ -1,7 +1,7 @@
 node_modules
 npm-debug.log
-Dockerfile
-docker-compose.yml
+Dockerfile*
+docker-compose*
 .dockerignore
 *.md
 .git
@@ -11,3 +11,5 @@ docker-compose.yml
 *.db
 *.sql
 /generated/prisma
+.env*
+.DS_Store
