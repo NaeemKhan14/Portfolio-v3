@@ -29,7 +29,7 @@ export default async function CertificateSection() {
           </a>
         </div>
       </div>
-    <Divider className="max-w-3xl mx-auto"/>
+    <Divider data-testid="divider" className="max-w-3xl mx-auto"/>
     </section>
   );
 }

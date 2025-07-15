@@ -1,54 +1,77 @@
 import { render, screen } from "@testing-library/react";
+import prisma from "@/lib/prisma";
 import CertificateSection from "../CertificateSection";
 
-// Mock certificate data if needed
-jest.mock("@/data/certificates", () => ({
-  certificates: [
-    {
-      id: 1,
-      title: "Pre-Security",
-      issuer: "TryHackMe",
-      date: "June 2025",
-      logo: "/images/tryhackme.jpg",
-      link: "https://example.com/cert1.pdf",
-      credential_id: "THM-123",
+const mockCertificates = [
+  {
+    id: 1,
+    credential_id: "cert001",
+    title: "Frontend Developer Certification",
+    issuer: "Codecademy",
+    type: "Professional",
+    date: "2024-03-20",
+    logo: "/certs/frontend.svg",
+    link: "https://example.com/cert001"
+  },
+  {
+    id: 2,
+    credential_id: "cert002",
+    title: "Backend Developer Certification",
+    issuer: "Udemy",
+    type: "Professional",
+    date: "2024-04-15",
+    logo: "/certs/backend.svg",
+    link: "https://example.com/cert002"
+  },
+  {
+    id: 3,
+    credential_id: "cert003",
+    title: "Full Stack Developer Certification",
+    issuer: "Udemy",
+    type: "Professional",
+    date: "2024-07-13",
+    logo: "/certs/fs.svg",
+    link: "https://example.com/cert003"
+  }
+];
+
+jest.mock("@/lib/prisma", () => ({
+  __esModule: true,
+  default: {
+    certificate: {
+      findMany: jest.fn(),
     },
-    {
-      id: 2,
-      title: "Cyber Security 101",
-      issuer: "TryHackMe",
-      date: "June 2025",
-      logo: "/images/tryhackme.jpg",
-      link: "https://example.com/cert2.pdf",
-      credential_id: "THM-456",
-    },
-    {
-      id: 3,
-      title: "SAL1",
-      issuer: "TryHackMe",
-      date: "ongoing",
-      logo: "/images/tryhackme.jpg",
-      link: null,
-      credential_id: "",
-    },
-  ],
+  },
 }));
 
+
 describe("CertificateSection", () => {
-  it("renders heading and certificate cards", () => {
-    render(<CertificateSection />);
-    
-    expect(screen.getByText("Certificates")).toBeInTheDocument();
-    expect(screen.getByText("Pre-Security")).toBeInTheDocument();
-    expect(screen.getByText("Cyber Security 101")).toBeInTheDocument();
-    // "SAL1" is sliced out, only 2 shown
-    expect(screen.queryByText("SAL1")).not.toBeInTheDocument();
+  beforeEach(() => {
+    (prisma.certificate.findMany as jest.Mock).mockResolvedValue(mockCertificates);
   });
 
-  it("renders 'More Certificates' link", () => {
-    render(<CertificateSection />);
-    const moreLink = screen.getByRole("link", { name: /more certificates/i });
-    expect(moreLink).toBeInTheDocument();
-    expect(moreLink).toHaveAttribute("href", "/certificates");
+  it("renders heading correctly", async () => {
+    render(await CertificateSection());
+    expect(screen.getByRole("heading", { name: /Certificates/i })).toBeInTheDocument();
+  });
+
+  it("renders certificate cards", async () => {
+    render(await CertificateSection());
+    const cardTitles = mockCertificates.map(cert => cert.title);
+    cardTitles.forEach(title => {
+      expect(screen.getByText(title)).toBeInTheDocument();
+    });
+  });
+
+  it("renders link to more certificates", async () => {
+    render(await CertificateSection());
+    const link = screen.getByRole("link", { name: /More Certificates/i });
+    expect(link).toHaveAttribute("href", "/certificates");
+  });
+
+  it("renders divider element", async () => {
+    render(await CertificateSection());
+    const divider = screen.getByTestId("divider");
+    expect(divider).toBeInTheDocument();
   });
 });

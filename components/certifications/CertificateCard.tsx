@@ -15,6 +15,7 @@ export const CertificateCard: React.FC<Certificate> = ({
 
   return (
     <Card
+      data-testid="certificate-card"
       className={`relative mb-6 hover:shadow-md bg-black-900/100 border transition-all group
         ${isCertification
           ? 'border-warning-500 dark:border-warning-400 hover:shadow-warning-500/30 dark:hover:shadow-warning-400/30'
@@ -88,19 +89,17 @@ export const CertificateCard: React.FC<Certificate> = ({
       <Divider className={isCertification ? 'bg-warning-500 dark:bg-warning-400' : ''} />
 
       <CardFooter className="justify-center">
-        {link && (
-          <Link
-            href={link}
-            isExternal
-            className={`text-sm font-medium hover:underline ${isCertification
-              ? 'text-warning-600 dark:text-warning-400'
-              : 'text-danger'
-              }`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            View Certificate →
-          </Link>
-        )}
+        <Link
+          href={link}
+          isExternal
+          className={`text-sm font-medium hover:underline ${isCertification
+            ? 'text-warning-600 dark:text-warning-400'
+            : 'text-danger'
+            }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          View Certificate →
+        </Link>
       </CardFooter>
     </Card>
   );
