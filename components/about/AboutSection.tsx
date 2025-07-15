@@ -3,7 +3,7 @@
 import { siteConfig } from "@/config/site";
 import Image from "next/image";
 import { GithubIcon, LinkedinIcon } from "../ui/icons";
-import { Link } from "@heroui/link";
+import Link from 'next/link'
 import { Chip, Divider } from "@heroui/react";
 
 export default function AboutSection() {
@@ -29,40 +29,42 @@ export default function AboutSection() {
                 </Chip>
               </div>
             </div>
-            
+
             <div className="flex flex-col items-center w-full space-y-4">
               <div className="flex space-x-4">
-                <Link 
-                  isExternal 
-                  aria-label="Linkedin" 
+                <Link
+                  target="_blank"
+                  aria-label="Linkedin"
                   href={siteConfig.links.linkedin}
                   className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-125 transition-transform"
                 >
                   <LinkedinIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                 </Link>
-                <Link 
-                  isExternal 
-                  aria-label="Github" 
+                <Link
+                  target="_blank"
+                  aria-label="Github"
                   href={siteConfig.links.github}
                   className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-125 transition-transform"
                 >
                   <GithubIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                 </Link>
               </div>
-              
+
               <div className="grid grid-cols-2 md:grid-cols-1 gap-3 w-full">
-                <a 
-                  href="cv/Naeem Khan CV (Cyber Security).pdf" 
+                <Link
+                  aria-label="Cybersecurity CV"
+                  href="cv/Naeem Khan CV (Cyber Security).pdf"
                   className="text-center text-sm bg-danger hover:bg-pink-300 dark:hover:bg-pink-900 text-white py-2.5 rounded transition-colors"
                 >
                   Cybersecurity CV
-                </a>
-                <a 
-                  href="cv/Naeem Khan CV.pdf" 
+                </Link>
+                <Link
+                  aria-label="Software Developer CV"
+                  href="cv/Naeem Khan CV.pdf"
                   className="text-center text-sm bg-danger hover:bg-pink-300 dark:hover:bg-pink-900 text-white py-2.5 rounded transition-colors"
                 >
                   Software Developer CV
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -73,14 +75,14 @@ export default function AboutSection() {
               Naeem Khan
             </h1>
             <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-              Cybersecurity specialist with software development expertise, focused on building 
-              secure systems and defending against modern threats. Combining SOC analyst certification 
+              Cybersecurity specialist with software development expertise, focused on building
+              secure systems and defending against modern threats. Combining SOC analyst certification
               with engineering experience to create resilient applications.
             </p>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-2">
-              <Chip color="danger" variant="bordered">Software Development</Chip>
-              <Chip color="danger" variant="bordered">SOC Analyst L1</Chip>
-              <Chip color="danger" variant="bordered">CTF Competitor</Chip>
+            <div role="list" className="flex flex-wrap justify-center lg:justify-start gap-2">
+              <Chip role="listitem" color="danger" variant="bordered">Software Development</Chip>
+              <Chip role="listitem" color="danger" variant="bordered">SOC Analyst L1</Chip>
+              <Chip role="listitem" color="danger" variant="bordered">CTF Competitor</Chip>
             </div>
           </div>
         </div>
