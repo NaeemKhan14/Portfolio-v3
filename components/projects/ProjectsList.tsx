@@ -38,9 +38,7 @@ export default function ProjectsList({ projects }: { projects: ProjectsList[] })
                                 className="text-sm font-medium text-danger hover:underline"
                                 href={`/projects/${project.slug}`}
                                 onClick={(e) => e.stopPropagation()}
-                            >
-                                Read more
-                            </Link>
+                            >Read more</Link>
                         </CardFooter>
                     </Card>
                 ))
