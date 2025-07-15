@@ -1,6 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { siteConfig } from '@/config/site';
 import AboutSection from '../AboutSection';
+// I don't know why all the tests break throughout the project if you remove
+// this import, even though it is already being imported from jest.config.js
+// I leave this one in God's hands 🙏
+import '@testing-library/jest-dom';
 
 describe('AboutSection', () => {
     // Render once for all tests

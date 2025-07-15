@@ -22,6 +22,7 @@ const Navbar = () => {
 
   return (
     <HeroUINavbar
+      role="navigation"
       className="container max-w-3xl mx-auto md:mt-5"
       maxWidth="md"
       position="sticky"
@@ -56,18 +57,18 @@ const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
-        </NavbarItem>
+        </NavbarItem >
       </NavbarContent>
 
       {/* Mobile Menu Toggle */}
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <ThemeSwitch />
-        <NavbarMenuToggle />
+        <NavbarMenuToggle data-testid="mobile-menu-toggle" />
       </NavbarContent>
 
       {/* Mobile Nav Menu */}
-      <NavbarMenu>
-        <div className="mx-4 mt-2 flex flex-col gap-2">
+      <NavbarMenu >
+        <div className="mx-4 mt-2 flex flex-col gap-2" data-testid="mobile-menu">
           {siteConfig.navMenuItems.map((item, index) => {
             const isActive = pathname === item.href;
 

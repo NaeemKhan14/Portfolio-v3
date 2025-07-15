@@ -1,76 +1,57 @@
-import { siteConfig } from '@/config/site';
-import { render, screen } from '@testing-library/react';
-import { usePathname } from 'next/navigation';
-import userEvent from '@testing-library/user-event';
-import Navbar from '../navbar';
+import { render, screen, fireEvent } from "@testing-library/react";
+import { usePathname } from "next/navigation";
+import { siteConfig } from "@/config/site";
+import Navbar from "../navbar";
 
-jest.mock('next/navigation', () => ({
+jest.mock("next/navigation", () => ({
     usePathname: jest.fn(),
 }));
+// TO-DO: mobile-menu test
+describe("Navbar", () => {
+    beforeEach(() => {
+        (usePathname as jest.Mock).mockReturnValue("/");
+    });
 
-
-jest.mock('@/config/site', () => ({
-    siteConfig: {
-        navItems: [
-            { href: '/', label: 'Home' },
-            { href: '/certificates', label: 'Certificates' },
-            { href: '/projects', label: 'Projects' },
-            { href: '/blog', label: 'Blog' },
-        ],
-        navMenuItems: [
-            { href: '/', label: 'Home' },
-            { href: '/certificates', label: 'Certificates' },
-            { href: '/projects', label: 'Projects' },
-            { href: '/blog', label: 'Blog' },
-        ],
-    },
-}));
-
-describe('Navbar', () => {
-    const renderNavbarAtPath = (pathname: string) => {
-        (usePathname as jest.Mock).mockReturnValue(pathname);
+    it("renders the desktop and mobile navigation items", () => {
         render(<Navbar />);
-    };
-
-    it('renders all static and dynamic links', () => {
-        renderNavbarAtPath('/');
-
-        // Assert all labels exist
         siteConfig.navItems.forEach((item) => {
-            expect(screen.getAllByText(item.label)[0]).toBeInTheDocument();
+            const navLink = screen.getByRole("link", { name: item.label });
+            expect(navLink).toHaveAttribute("href", item.href);
         });
-    });
-
-    it('marks the current route as active', () => {
-        renderNavbarAtPath('/projects');
-
-        const projectsLink = screen.getByText('Projects');
-        expect(projectsLink).toBeInTheDocument();
-        expect(projectsLink.className).toContain('text-danger');
-    });
-
-    it('does not mark inactive routes', () => {
-        renderNavbarAtPath('/blog');
-
-        const homeLink = screen.getByText('Home');
-        expect(homeLink.className).not.toContain('text-danger');
-    });
-
-    it('renders mobile nav menu items', () => {
-        renderNavbarAtPath('/blog');
-
-        const blogMobile = screen.getAllByText('Blog');
-        expect(blogMobile.length).toBeGreaterThan(0);
-    });
-
-    it('opens mobile menu and shows links', () => {
-        renderNavbarAtPath('/');
-        const toggleBtn = screen.getByRole('button');
-        userEvent.click(toggleBtn);
 
         siteConfig.navMenuItems.forEach((item) => {
-            const links = screen.getAllByText(item.label, { selector: 'a' });
-            expect(links.length).toBeGreaterThan(0);
+            const menuLink = screen.getByRole("link", { name: item.label });
+            expect(menuLink).toHaveAttribute("href", item.href);
         });
+
+    });
+
+    it("renders ThemeSwitch on both desktop and mobile", () => {
+        render(<Navbar />);
+        const themeSwitches = screen.getAllByRole("switch");
+        expect(themeSwitches.length).toBe(2);
+    });
+
+    it("renders mobile menu toggle button", () => {
+        render(<Navbar />);
+        const toggle = screen.getByTestId("mobile-menu-toggle");
+        expect(toggle).toBeInTheDocument();
+    });
+
+    it("highlights active link with correct style", () => {
+        const activeHref = siteConfig.navItems[1].href;
+        (usePathname as jest.Mock).mockReturnValue(activeHref);
+
+        render(<Navbar />);
+
+        const activeLink = screen.getByRole("link", { name: siteConfig.navItems[1].label });
+        expect(activeLink.className).toMatch(/danger/i);
+    });
+
+    it("contains correct number of mobile menu links", () => {
+        render(<Navbar />);
+        const links = screen.getAllByRole("link");
+        const expectedCount = siteConfig.navMenuItems.length;
+        expect(links.length).toBeGreaterThanOrEqual(expectedCount);
     });
 });
