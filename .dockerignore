@@ -7,3 +7,7 @@ docker-compose.yml
 .git
 .vscode
 .next
+/lib/generated/prisma/*
+*.db
+*.sql
+/generated/prisma
