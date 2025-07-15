@@ -1,6 +1,6 @@
 interface ProjectsList {
-    id: number;
-    slug: string;
-    title: string;
-    short_desc: string;
+  id: number
+  slug: string
+  title: string
+  short_desc: string
 }

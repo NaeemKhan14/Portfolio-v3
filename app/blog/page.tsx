@@ -1,5 +1,5 @@
-import BlogPostsList from '@/components/blog/BlogPostsList';
-import prisma from '@/lib/prisma';
+import BlogPostsList from '@/components/blog/BlogPostsList'
+import prisma from '@/lib/prisma'
 
 export default async function BlogPage() {
   const posts = await prisma.post.findMany({
@@ -12,11 +12,11 @@ export default async function BlogPage() {
       date: true,
       category: {
         select: {
-          name: true
-        }
-      }
-    }
-  });
+          name: true,
+        },
+      },
+    },
+  })
 
-  return <BlogPostsList posts={posts} />;
+  return <BlogPostsList posts={posts} />
 }

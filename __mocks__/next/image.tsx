@@ -1,10 +1,10 @@
 // __mocks__/next/image.tsx
-import React from "react";
+import React from 'react'
 
 const NextImage = ({ src, alt, ...props }: any) => {
-  const { priority, unoptimized, ...rest } = props;
+  const { priority, unoptimized, ...rest } = props
 
-  return <img src={src} alt={alt} {...rest} />;
-};
+  return <img src={src} alt={alt} {...rest} />
+}
 
-export default NextImage;
+export default NextImage
