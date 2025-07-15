@@ -2,16 +2,6 @@
 
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Chip } from "@heroui/react";
 
-interface Certificate {
-  title: string;
-  issuer: string;
-  type?: string;
-  date: string;
-  logo?: string;
-  link?: string | null;
-  credential_id?: string | null;
-}
-
 export const CertificateCard: React.FC<Certificate> = ({
   title,
   issuer,
@@ -46,30 +36,26 @@ export const CertificateCard: React.FC<Certificate> = ({
 
       )}
       {/* Large logo with hover effect */}
-      {logo && (
-        <div className={`absolute right-4 top-4 opacity-10 group-hover:opacity-70 transition-all duration-400 transform group-hover:scale-110
+      <div className={`absolute right-4 top-4 opacity-10 group-hover:opacity-70 transition-all duration-400 transform group-hover:scale-110
           ${isCertification ? 'opacity-20 group-hover:opacity-90' : ''}`}>
-          <Image
-            src={logo}
-            alt={`${issuer} logo`}
-            width={80}
-            height={80}
-            className="rounded-md"
-          />
-        </div>
-      )}
+        <Image
+          src={logo}
+          alt={`${issuer} logo`}
+          width={80}
+          height={80}
+          className="rounded-md"
+        />
+      </div>
 
       <CardHeader className="flex items-center gap-4">
         {/* Logo aligned to the left */}
-        {logo && (
-          <Image
-            src={logo}
-            alt={`${issuer} logo`}
-            width={48}
-            height={48}
-            className="rounded-md flex-shrink-0"
-          />
-        )}
+        <Image
+          src={logo}
+          alt={`${issuer} logo`}
+          width={48}
+          height={48}
+          className="rounded-md flex-shrink-0"
+        />
 
         {/* Centered title and issuer that takes remaining space */}
         <div className="flex-1 flex flex-col items-center text-center">
@@ -88,17 +74,15 @@ export const CertificateCard: React.FC<Certificate> = ({
       <CardBody className="text-center">
         <div className="mb-2 flex justify-center">
           <span className={`inline-block text-xs font-medium px-3 py-2 rounded-full ${isCertification
-              ? 'bg-warning-500/20 text-warning-700 dark:text-warning-300'
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
+            ? 'bg-warning-500/20 text-warning-700 dark:text-warning-300'
+            : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
             }`}>
-            {date.toLowerCase() === "ongoing" ? "In Progress" : date}
+            {date}
           </span>
         </div>
-        {credential_id && (
-          <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-            Credential ID: <span className="font-mono">{credential_id}</span>
-          </p>
-        )}
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+          Credential ID: <span className="font-mono">{credential_id}</span>
+        </p>
       </CardBody>
 
       <Divider className={isCertification ? 'bg-warning-500 dark:bg-warning-400' : ''} />
@@ -109,8 +93,8 @@ export const CertificateCard: React.FC<Certificate> = ({
             href={link}
             isExternal
             className={`text-sm font-medium hover:underline ${isCertification
-                ? 'text-warning-600 dark:text-warning-400'
-                : 'text-danger'
+              ? 'text-warning-600 dark:text-warning-400'
+              : 'text-danger'
               }`}
             onClick={(e) => e.stopPropagation()}
           >
