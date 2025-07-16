@@ -1,4 +1,4 @@
-import type { CollectionConfig } from '../app/(payload)/payload'
+import { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
   slug: 'users',

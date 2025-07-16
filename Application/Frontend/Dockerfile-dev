@@ -11,7 +11,7 @@ RUN npm install
 COPY . .
 
 # Expose frontend dev port
-EXPOSE 3501
+EXPOSE 3000
 
 # Start Next.js dev server
 CMD ["npm", "run", "dev"]
