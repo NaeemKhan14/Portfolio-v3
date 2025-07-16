@@ -2,6 +2,9 @@ import { CollectionConfig } from 'payload';
 
 const Certificates: CollectionConfig = {
     slug: 'certificates',
+    access: {
+        read: () => true,
+    },
     admin: {
         useAsTitle: 'title',
     },

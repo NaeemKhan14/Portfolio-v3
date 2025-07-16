@@ -1,12 +1,11 @@
 import { CertificateCard } from './CertificateCard'
 import { Divider } from '@heroui/react'
-import prisma from '@/lib/prisma'
+import { fetchFromApi } from '@/lib/payload/fetcher'
 
 export default async function CertificateSection() {
-  const certificates = await prisma.certificate.findMany({
-    orderBy: { id: 'asc' },
-    take: 2,
-  })
+  const data = await fetchFromApi<Certificate>('/certificates?sort=-date&limit=2')
+  const certificates = data.docs
+
 
   return (
     <section className='py-8'>
@@ -15,7 +14,7 @@ export default async function CertificateSection() {
           Certificates
         </h2>
         <div className='grid gap-6 md:gap-2'>
-          {certificates.map((cert, idx) => (
+          {certificates.slice(0, 2).map((cert, idx) => (
             <CertificateCard key={idx} {...cert} />
           ))}
         </div>

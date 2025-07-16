@@ -191,7 +191,6 @@ export interface Post {
   mdxContent: string;
   date: string;
   category: string | PostCategory;
-  images?: (string | Media)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -359,7 +358,6 @@ export interface PostsSelect<T extends boolean = true> {
   mdxContent?: T;
   date?: T;
   category?: T;
-  images?: T;
   updatedAt?: T;
   createdAt?: T;
 }
