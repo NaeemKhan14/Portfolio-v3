@@ -25,11 +25,10 @@ export const CertificateCard: React.FC<Certificate> = ({
   return (
     <Card
       data-testid='certificate-card'
-      className={`bg-black-900/100 group relative mb-6 border transition-all hover:shadow-md ${
-        isCertification
+      className={`bg-black-900/100 group relative mb-6 border transition-all hover:shadow-md ${isCertification
           ? 'border-warning-500 dark:border-warning-400 hover:shadow-warning-500/30 dark:hover:shadow-warning-400/30'
           : 'border-gray-500 hover:shadow-gray-400 dark:border-gray-700 dark:hover:shadow-white'
-      } ${isCertification ? 'ring-warning-500 dark:ring-warning-400 ring-1' : ''} `}
+        } ${isCertification ? 'ring-warning-500 dark:ring-warning-400 ring-1' : ''} `}
       isHoverable
       isPressable
       onPress={() => (link != null ? window.open(link, '_blank') : '')}
@@ -91,13 +90,17 @@ export const CertificateCard: React.FC<Certificate> = ({
       <CardBody className='text-center'>
         <div className='mb-2 flex justify-center'>
           <span
-            className={`inline-block rounded-full px-3 py-2 text-xs font-medium ${
-              isCertification
+            className={`inline-block rounded-full px-3 py-2 text-xs font-medium ${isCertification
                 ? 'bg-warning-500/20 text-warning-700 dark:text-warning-300'
                 : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
-            }`}
+              }`}
           >
-            {date}
+            {
+              new Date(date).toLocaleDateString('en-GB', {
+                year: 'numeric',
+                month: 'long'
+              })
+            }
           </span>
         </div>
         <p className='mb-3 text-xs text-gray-500 dark:text-gray-400'>
@@ -113,11 +116,10 @@ export const CertificateCard: React.FC<Certificate> = ({
         <Link
           href={link}
           isExternal
-          className={`text-sm font-medium hover:underline ${
-            isCertification
+          className={`text-sm font-medium hover:underline ${isCertification
               ? 'text-warning-600 dark:text-warning-400'
               : 'text-danger'
-          }`}
+            }`}
           onClick={(e) => e.stopPropagation()}
         >
           View Certificate →
