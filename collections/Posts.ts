@@ -1,6 +1,9 @@
 import { CollectionConfig } from 'payload';
 
 const Posts: CollectionConfig = {
+    access: {
+        read: () => true,
+    },
     slug: 'posts',
     admin: {
         useAsTitle: 'title',
@@ -40,13 +43,6 @@ const Posts: CollectionConfig = {
             type: 'relationship',
             relationTo: 'post-categories',
             required: true,
-        },
-        {
-            name: 'images',
-            type: 'relationship',
-            relationTo: 'media',
-            hasMany: true,
-            required: false,
         },
     ],
 };

@@ -1,34 +1,9 @@
 import BlogPostsList from '@/components/blog/BlogPostsList'
+import { fetchFromApi } from '@/lib/payload/fetcher'
 
 export default async function BlogPage() {
-  // const posts = await prisma.post.findMany({
-  //   orderBy: { date: 'desc' },
-  //   select: {
-  //     id: true,
-  //     slug: true,
-  //     title: true,
-  //     short_desc: true,
-  //     date: true,
-  //     category: {
-  //       select: {
-  //         name: true,
-  //       },
-  //     },
-  //   },
-  // })
-  const posts: BlogPost[] =
-    [
-      {
-        id: 1,
-        slug: "abvad",
-        title: "adfadfadfadf",
-        short_desc: "abggggggc",
-        date: new Date("11-11-2022"),
-        category: {
-          name: "abc"
-        }
-      }
-    ]
+  const data = await fetchFromApi<BlogPostList>('/posts?sort=createdAt&depth=1')
+  const posts = data.docs
 
   return <BlogPostsList posts={posts} />
 }

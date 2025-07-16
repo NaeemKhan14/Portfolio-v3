@@ -4,7 +4,7 @@ import { Card, CardHeader, CardBody, CardFooter, Divider } from '@heroui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-export default function BlogPostsList({ posts }: { posts: BlogPost[] }) {
+export default function BlogPostsList({ posts }: { posts: BlogPostList[] }) {
   const router = useRouter()
 
   return (
@@ -35,10 +35,16 @@ export default function BlogPostsList({ posts }: { posts: BlogPost[] }) {
             </CardBody>
             <CardFooter className='flex items-center justify-between'>
               <span className='bg-danger dark:bg-danger-200 rounded px-2 py-1 text-sm font-medium text-white'>
-                {post.category?.name || 'Uncategorized'}
+                {post.category.name || 'Uncategorized'}
               </span>
               <span className='text-sm text-gray-500 dark:text-gray-400'>
-                {new Date(post.date).toLocaleDateString()}
+                {
+                  new Date(post.date).toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                  })
+                }
               </span>
               <Link
                 className='text-danger text-sm font-medium hover:underline'

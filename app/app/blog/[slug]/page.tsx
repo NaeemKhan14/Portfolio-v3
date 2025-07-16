@@ -1,7 +1,7 @@
-import prisma from '@/lib/prisma';
+import { fetchFromApi } from '@/lib/payload/fetcher';
 import { Divider } from '@heroui/react';
-import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
+import { notFound } from 'next/navigation';
 
 type PageParams = {
   params: {
@@ -11,18 +11,12 @@ type PageParams = {
 
 export default async function BlogPostPage({ params }: PageParams) {
   const param = await params
-  const post = await prisma.post.findUnique({
-    where: {
-      slug: param.slug,
-    },
-    include: {
-      category: true
-    }
-  });
+  const data = await fetchFromApi<BlogPost>(`/posts?where[slug][equals]=${param.slug}&depth=1`)
+  const post = data?.docs?.[0]
 
-  if (!post) return notFound();
+  if (!post) return notFound()
 
-  const images = Array.isArray(post.images) ? (post.images as string[]) : [];
+  const date = post.date ? new Date(post.date) : null
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
@@ -38,14 +32,6 @@ export default async function BlogPostPage({ params }: PageParams) {
       </p>
 
       <Divider className="mb-8" />
-
-      {/* {images.length > 0 && (
-        <div className="flex flex-col gap-4 mb-6">
-          {images.map((img, i) => (
-            <img key={i} src={img} alt={`img-${i}`} className="rounded" />
-          ))}
-        </div>
-      )} */}
 
       <div className="prose dark:prose-invert">{post.mdxContent}</div>
     </div>

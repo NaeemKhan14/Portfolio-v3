@@ -1,6 +1,9 @@
 import { CollectionConfig } from 'payload';
 
 const PostCategories: CollectionConfig = {
+  access: {
+    read: () => true,
+  },
   slug: 'post-categories',
   admin: {
     useAsTitle: 'name',

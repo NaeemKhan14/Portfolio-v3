@@ -1,9 +1,8 @@
-interface BlogPost {
+interface BlogPostList {
   id: string
-  title: string
   slug: string
+  title: string
   short_desc: string
   date: Date
-  mdxContent: string
   category: BlogPostCategory
 }
