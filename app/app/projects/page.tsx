@@ -1,8 +1,9 @@
 import ProjectsList from '@/components/projects/ProjectsList'
-import prisma from '@/lib/prisma'
+import { fetchFromApi } from '@/lib/payload/fetcher'
 
 export default async function ProjectsPage() {
-  const projects = await prisma.project.findMany()
+    const data = await fetchFromApi<ProjectList>('/projects?sort=createdAt')
+    const projects = data.docs
 
   return <ProjectsList projects={projects} />
 }

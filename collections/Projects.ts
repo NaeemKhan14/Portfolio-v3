@@ -1,6 +1,9 @@
 import { CollectionConfig } from 'payload';
 
 const Projects: CollectionConfig = {
+  access: {
+    read: () => true,
+  },
   slug: 'projects',
   admin: {
     useAsTitle: 'title',

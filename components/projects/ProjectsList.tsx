@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 export default function ProjectsList({
   projects,
 }: {
-  projects: ProjectsList[]
+  projects: ProjectList[]
 }) {
   const router = useRouter()
 
