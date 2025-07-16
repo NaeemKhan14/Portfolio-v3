@@ -69,10 +69,10 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    projects: Project;
-    posts: Post;
-    'post-categories': PostCategory;
     certificates: Certificate;
+    'post-categories': PostCategory;
+    posts: Post;
+    projects: Project;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,10 +81,10 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    projects: ProjectsSelect<false> | ProjectsSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
-    'post-categories': PostCategoriesSelect<false> | PostCategoriesSelect<true>;
     certificates: CertificatesSelect<false> | CertificatesSelect<true>;
+    'post-categories': PostCategoriesSelect<false> | PostCategoriesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -163,19 +163,56 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    tablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "projects".
+ * via the `definition` "certificates".
  */
-export interface Project {
+export interface Certificate {
   id: string;
-  slug: string;
+  credential_id: string;
   title: string;
-  short_desc: string;
-  content: string;
-  images?: (string | Media)[] | null;
-  github_link?: string | null;
+  issuer: string;
+  type: string;
+  date: string;
+  logo: string;
+  link: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "post-categories".
+ */
+export interface PostCategory {
+  id: string;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -196,27 +233,16 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "post-categories".
+ * via the `definition` "projects".
  */
-export interface PostCategory {
+export interface Project {
   id: string;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "certificates".
- */
-export interface Certificate {
-  id: string;
-  credential_id: string;
+  slug: string;
   title: string;
-  issuer: string;
-  type: string;
-  date: string;
-  logo: string;
-  link: string;
+  short_desc: string;
+  content: string;
+  images?: (string | Media)[] | null;
+  github_link?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -236,20 +262,20 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
-        relationTo: 'projects';
-        value: string | Project;
-      } | null)
-    | ({
-        relationTo: 'posts';
-        value: string | Post;
+        relationTo: 'certificates';
+        value: string | Certificate;
       } | null)
     | ({
         relationTo: 'post-categories';
         value: string | PostCategory;
       } | null)
     | ({
-        relationTo: 'certificates';
-        value: string | Certificate;
+        relationTo: 'posts';
+        value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: string | Project;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -332,18 +358,62 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        tablet?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "projects_select".
+ * via the `definition` "certificates_select".
  */
-export interface ProjectsSelect<T extends boolean = true> {
-  slug?: T;
+export interface CertificatesSelect<T extends boolean = true> {
+  credential_id?: T;
   title?: T;
-  short_desc?: T;
-  content?: T;
-  images?: T;
-  github_link?: T;
+  issuer?: T;
+  type?: T;
+  date?: T;
+  logo?: T;
+  link?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "post-categories_select".
+ */
+export interface PostCategoriesSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -363,25 +433,15 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "post-categories_select".
+ * via the `definition` "projects_select".
  */
-export interface PostCategoriesSelect<T extends boolean = true> {
-  name?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "certificates_select".
- */
-export interface CertificatesSelect<T extends boolean = true> {
-  credential_id?: T;
+export interface ProjectsSelect<T extends boolean = true> {
+  slug?: T;
   title?: T;
-  issuer?: T;
-  type?: T;
-  date?: T;
-  logo?: T;
-  link?: T;
+  short_desc?: T;
+  content?: T;
+  images?: T;
+  github_link?: T;
   updatedAt?: T;
   createdAt?: T;
 }

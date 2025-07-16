@@ -8,21 +8,41 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  app:
-    container_name: portfolio-v3-dev
+  backend:
     build:
-      context: .
+      context: ./Application/Backend
       dockerfile: Dockerfile-dev
-    command: sh -c "npm run dev"
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    env_file:
-      - .env.dev
+    container_name: payload-backend-dev
+    restart: unless-stopped
     depends_on:
       - mongo
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./Application/Backend/.env
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./Application/Backend:/app
+      - /app/node_modules
+
+  frontend:
+    build:
+      context: ./Application/Frontend
+      dockerfile: Dockerfile-dev
+    container_name: nextjs-frontend-dev
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3501:3501"
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./Application/Frontend/.env.local
+    volumes:
+      - ./Application/Frontend:/app
+      - /app/node_modules
 
 volumes:
   mongo-data:
