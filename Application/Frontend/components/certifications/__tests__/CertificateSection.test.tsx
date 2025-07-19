@@ -1,80 +1,62 @@
-// import { render, screen } from '@testing-library/react'
-// import prisma from '@/lib/prisma'
-// import CertificateSection from '../CertificateSection'
+import { render, screen } from '@testing-library/react'
+import CertificateSection from '../CertificateSection'
 
-// const mockCertificates = [
-//   {
-//     id: 1,
-//     credential_id: 'cert001',
-//     title: 'Frontend Developer Certification',
-//     issuer: 'Codecademy',
-//     type: 'Professional',
-//     date: '2024-03-20',
-//     logo: '/certs/frontend.svg',
-//     link: 'https://example.com/cert001',
-//   },
-//   {
-//     id: 2,
-//     credential_id: 'cert002',
-//     title: 'Backend Developer Certification',
-//     issuer: 'Udemy',
-//     type: 'Professional',
-//     date: '2024-04-15',
-//     logo: '/certs/backend.svg',
-//     link: 'https://example.com/cert002',
-//   },
-//   {
-//     id: 3,
-//     credential_id: 'cert003',
-//     title: 'Full Stack Developer Certification',
-//     issuer: 'Udemy',
-//     type: 'Professional',
-//     date: '2024-07-13',
-//     logo: '/certs/fs.svg',
-//     link: 'https://example.com/cert003',
-//   },
-// ]
+jest.mock('@/lib/api-fetcher', () => ({
+  fetchFromApi: jest.fn().mockResolvedValue({
+    docs: [
+      {
+        id: '1',
+        credential_id: 'ABC123',
+        title: 'Security Certification',
+        issuer: 'Security Institute',
+        type: 'certification',
+        date: new Date('2023-06-15T00:00:00.000Z'),
+        logo: '/security-logo.png',
+        link: 'https://example.com/cert/1',
+      },
+      {
+        id: '2',
+        credential_id: 'DEF456',
+        title: 'JavaScript Course',
+        issuer: 'JS Academy',
+        type: 'course',
+        date: new Date('2023-03-10T00:00:00.000Z'),
+        logo: '/js-logo.png',
+        link: 'https://example.com/cert/2',
+      },
+    ],
+  }),
+}))
 
-// jest.mock('@/lib/prisma', () => ({
-//   __esModule: true,
-//   default: {
-//     certificate: {
-//       findMany: jest.fn(),
-//     },
-//   },
-// }))
+describe('CertificateSection', () => {
+  it('renders section with title and certificates', async () => {
+    render(await CertificateSection())
 
-// describe('CertificateSection', () => {
-//   beforeEach(() => {
-//     ;(prisma.certificate.findMany as jest.Mock).mockResolvedValue(
-//       mockCertificates,
-//     )
-//   })
+    // Wait for data to load
+    expect(await screen.findByText('Certificates')).toBeInTheDocument()
+    expect(screen.getByText('Security Certification')).toBeInTheDocument()
+    expect(screen.getByText('JavaScript Course')).toBeInTheDocument()
+  })
 
-//   it('renders heading correctly', async () => {
-//     render(await CertificateSection())
-//     expect(
-//       screen.getByRole('heading', { name: /Certificates/i }),
-//     ).toBeInTheDocument()
-//   })
+  it('renders only 2 certificates', async () => {
+    render(await CertificateSection())
 
-//   it('renders certificate cards', async () => {
-//     render(await CertificateSection())
-//     const cardTitles = mockCertificates.map((cert) => cert.title)
-//     cardTitles.forEach((title) => {
-//       expect(screen.getByText(title)).toBeInTheDocument()
-//     })
-//   })
+    const cards = await screen.findAllByTestId('certificate-card')
+    expect(cards.length).toBe(2)
+  })
 
-//   it('renders link to more certificates', async () => {
-//     render(await CertificateSection())
-//     const link = screen.getByRole('link', { name: /More Certificates/i })
-//     expect(link).toHaveAttribute('href', '/certificates')
-//   })
+  it('renders "More Certificates" link', async () => {
+    render(await CertificateSection())
 
-//   it('renders divider element', async () => {
-//     render(await CertificateSection())
-//     const divider = screen.getByTestId('divider')
-//     expect(divider).toBeInTheDocument()
-//   })
-// })
+    expect(await screen.findByText('More Certificates...')).toHaveAttribute(
+      'href',
+      '/certificates',
+    )
+  })
+
+  it('renders divider', async () => {
+    render(await CertificateSection())
+
+    expect(screen.getByTestId('divider')).toBeInTheDocument()
+  })
+})
