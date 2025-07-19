@@ -1,51 +1,82 @@
-// import { render, screen } from '@testing-library/react'
-// import BlogPostPage from '@/app/blog/[slug]/page'
+import { render, screen } from '@testing-library/react'
+import BlogPostPage from '@/app/blog/[slug]/page'
+import { fetchFromApi } from '@/lib/api-fetcher'
 
-// jest.mock('@/lib/prisma', () => ({
-//   post: {
-//     findUnique: jest.fn(),
-//   },
-// }))
+// Mock next/navigation since we're using notFound()
+jest.mock('next/navigation', () => ({
+  notFound: jest.fn(),
+}))
 
-// const mockPost = {
-//   title: 'Test Post',
-//   mdxContent: 'This is test content.',
-//   date: new Date('2023-01-01'),
-//   slug: 'test-post',
-//   category: {
-//     name: 'Tech',
-//   },
-//   images: ['/images/image1.jpg', '/images/image2.jpg'],
-// }
+// Mock the API fetcher
+jest.mock('@/lib/api-fetcher', () => ({
+  fetchFromApi: jest.fn(),
+}))
 
-// describe('BlogPostPage', () => {
-//   it('renders post data correctly', async () => {
-//     ;(prisma.post.findUnique as jest.Mock).mockResolvedValue(mockPost)
+const mockCategory: BlogPostCategory = {
+  id: 'cat-1',
+  name: 'Technology'
+}
 
-//     const params = { slug: 'test-post' }
-//     const container = await BlogPostPage({ params })
-//     expect(container).toBeTruthy()
-//     render(container)
+const mockPost: BlogPost = {
+  id: 'post-1',
+  title: 'Test Post',
+  slug: 'test-post',
+  short_desc: 'This is a short description',
+  date: new Date('2023-06-15'),
+  mdxContent: 'This is test content.',
+  category: mockCategory
+}
 
-//     expect(screen.getByText('Test Post')).toBeInTheDocument()
-//     expect(screen.getByText('Tech')).toBeInTheDocument()
-//     expect(screen.getByText('01 January, 2023')).toBeInTheDocument()
-//     expect(screen.getByText('This is test content.')).toBeInTheDocument()
-//     expect(screen.getAllByRole('img')).toHaveLength(2)
-//   })
+describe('BlogPostPage', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
 
-//   it('handles missing images gracefully', async () => {
-//     ;(prisma.post.findUnique as jest.Mock).mockResolvedValue({
-//       ...mockPost,
-//       images: null,
-//     })
+  it('renders post data correctly', async () => {
+    // Mock successful API response
+    ;(fetchFromApi as jest.Mock).mockResolvedValue({
+      docs: [mockPost]
+    })
 
-//     const params = { slug: 'no-images-post' }
-//     const container = await BlogPostPage({ params })
-//     expect(container).toBeTruthy()
+    const params = { slug: mockPost.slug }
+    const container = await BlogPostPage({ params })
+    render(container)
 
-//     render(container)
+    // Verify all content renders correctly
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(mockPost.title)
+    expect(screen.getByText(mockCategory.name)).toBeInTheDocument()
+    expect(screen.getByText('15 June, 2023')).toBeInTheDocument()
+    expect(screen.getByText('This is test content.')).toBeInTheDocument()
+  })
 
-//     expect(screen.queryByRole('img')).not.toBeInTheDocument()
-//   })
-// })
+  it('handles not found posts', async () => {
+    // Mock empty response
+    ;(fetchFromApi as jest.Mock).mockResolvedValue({
+      docs: []
+    })
+
+    const params = { slug: 'non-existent-post' }
+    const notFound = require('next/navigation').notFound
+    
+    await BlogPostPage({ params })
+    
+    expect(notFound).toHaveBeenCalled()
+  })
+
+  it('formats date correctly', async () => {
+    const testDate = new Date('2023-12-25')
+    ;(fetchFromApi as jest.Mock).mockResolvedValue({
+      docs: [{
+        ...mockPost,
+        date: testDate
+      }]
+    })
+
+    const params = { slug: mockPost.slug }
+    const container = await BlogPostPage({ params })
+    render(container)
+
+    expect(screen.getByText('25 December, 2023')).toBeInTheDocument()
+  })
+
+})
