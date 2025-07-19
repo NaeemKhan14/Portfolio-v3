@@ -1,72 +1,89 @@
-// import { render, screen, fireEvent } from '@testing-library/react'
-// import { CertificateCard } from '../CertificateCard'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { CertificateCard } from '../CertificateCard'
 
-// const baseProps = {
-//   title: 'Full Stack Developer',
-//   issuer: 'Coursera',
-//   type: 'certificate',
-//   date: '2025-05-12',
-//   logo: '/images/logo.png',
-//   link: 'https://example.com',
-//   credential_id: 'abc123',
-// }
+const mockCertification: Certificate = {
+  id: '1',
+  credential_id: 'ABC123',
+  title: 'Security Certification',
+  issuer: 'Security Institute',
+  type: 'certification',
+  date: new Date('2023-06-15T00:00:00.000Z'),
+  logo: '/security-logo.png',
+  link: 'https://example.com/cert/1',
+}
 
-// describe('CertificateCard', () => {
-//   it('renders card with certificate type', () => {
-//     render(<CertificateCard {...baseProps} />)
+const mockCertificate = {
+  id: '2',
+  credential_id: 'DEF456',
+  title: 'JavaScript Course',
+  issuer: 'JS Academy',
+  type: 'course',
+  date: new Date('2023-03-10T00:00:00.000Z'),
+  logo: '/js-logo.png',
+  link: 'https://example.com/cert/2',
+}
 
-//     expect(screen.getByTestId('certificate-card')).toBeInTheDocument()
-//     expect(screen.getByText(baseProps.title)).toBeInTheDocument()
-//     expect(screen.getByText(baseProps.issuer)).toBeInTheDocument()
-//     expect(
-//       screen.getByText(
-//         (_, node: any) =>
-//           node.textContent === `Credential ID: ${baseProps.credential_id}`,
-//       ),
-//     ).toBeInTheDocument()
-//     expect(screen.getByText('View Certificate →')).toHaveAttribute(
-//       'href',
-//       baseProps.link,
-//     )
-//     expect(
-//       screen.queryByText('Professional Certification'),
-//     ).not.toBeInTheDocument()
-//   })
+describe('CertificateCard', () => {
+  it('renders certification card with all elements', () => {
+    render(<CertificateCard {...mockCertification} />)
 
-//   it('renders card with certification type and badge', () => {
-//     render(<CertificateCard {...baseProps} type='certification' />)
+    expect(screen.getByTestId('certificate-card')).toBeInTheDocument()
+    expect(screen.getByText(mockCertification.title)).toBeInTheDocument()
+    expect(screen.getByText(mockCertification.issuer)).toBeInTheDocument()
+    expect(screen.getByText('Professional Certification')).toBeInTheDocument()
+    expect(screen.getByText(/Credential ID/)).toBeInTheDocument()
+    expect(screen.getByText('June 2023')).toBeInTheDocument()
+    expect(screen.getByText('View Certificate →')).toBeInTheDocument()
+  })
 
-//     expect(screen.getByText('Professional Certification')).toBeInTheDocument()
-//     expect(screen.getByText(baseProps.title)).toHaveClass('text-warning-500')
-//     expect(screen.getByText(baseProps.date)).toHaveClass('text-warning-700')
-//     expect(screen.getByText('View Certificate →')).toHaveClass(
-//       'text-warning-600',
-//     )
-//   })
+  it('renders certificate card without certification badge', () => {
+    render(<CertificateCard {...mockCertificate} />)
 
-//   it('stops propagation when link is clicked', () => {
-//     render(<CertificateCard {...baseProps} />)
-//     const link = screen.getByText('View Certificate →')
-//     const clickEvent = new MouseEvent('click', {
-//       bubbles: true,
-//       cancelable: true,
-//     })
+    expect(
+      screen.queryByText('Professional Certification'),
+    ).not.toBeInTheDocument()
+  })
 
-//     Object.defineProperty(clickEvent, 'stopPropagation', {
-//       value: jest.fn(),
-//       writable: true,
-//     })
-//     link.dispatchEvent(clickEvent)
-//     expect(clickEvent.stopPropagation).toHaveBeenCalled()
-//   })
+  it('applies correct styling for certification type', () => {
+    render(<CertificateCard {...mockCertification} />)
+    const card = screen.getByTestId('certificate-card')
 
-//   it('renders both logos with correct alt text', () => {
-//     render(<CertificateCard {...baseProps} />)
+    expect(card).toHaveClass('border-warning-500')
+    expect(card).toHaveClass('ring-warning-500')
+  })
 
-//     const images = screen.getAllByRole('img', {
-//       name: `${baseProps.issuer} logo`,
-//     })
-//     expect(images).toHaveLength(2)
-//     images.forEach((img) => expect(img).toHaveAttribute('src', baseProps.logo))
-//   })
-// })
+  it('applies correct styling for non-certification type', () => {
+    render(<CertificateCard {...mockCertificate} />)
+    const card = screen.getByTestId('certificate-card')
+
+    expect(card).toHaveClass('border-gray-500')
+    expect(card).not.toHaveClass('ring-warning-500')
+  })
+
+    it('opens link in new tab when clicked', () => {
+      render(<CertificateCard {...mockCertification} />)
+      const card = screen.getByTestId('certificate-card')
+
+      const clickEvent = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      })
+
+      // Mock window.open
+      const mockOpen = jest.fn()
+      const originalOpen = window.open
+      window.open = mockOpen
+
+      card.dispatchEvent(clickEvent)
+
+      expect(mockOpen).toHaveBeenCalledWith(mockCertification.link, '_blank')
+
+      // Restore original window.open
+      window.open = originalOpen
+    })
+
+  it('formats date correctly', () => {
+    render(<CertificateCard {...mockCertification} />)
+    expect(screen.getByText('June 2023')).toBeInTheDocument()
+  })
+})
