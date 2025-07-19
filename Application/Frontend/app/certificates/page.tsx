@@ -10,11 +10,18 @@ export default async function CertificatesPage() {
     <div className='mx-auto flex flex-col md:max-w-2xl'>
       <h1 className='mb-6 text-center text-3xl font-bold'>Certificates</h1>
       <Divider className='mb-8' />
+      {certificates.length === 0 ? (
+          <p className='text-center text-gray-600 dark:text-gray-300'>
+            No Certificates.
+          </p>
+        ) : (
       <div className='grid grid-cols-1 gap-8'>
         {certificates.map((cert, idx) => (
           <CertificateCard key={idx} {...cert} />
         ))}
       </div>
+      )}
+      
     </div>
   )
 }

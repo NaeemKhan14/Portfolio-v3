@@ -14,19 +14,28 @@ export default async function CertificateSection() {
         <h2 className='mb-8 text-center text-3xl font-bold text-gray-900 dark:text-white'>
           Certificates
         </h2>
-        <div className='grid gap-6 md:gap-2'>
-          {certificates.slice(0, 2).map((cert, idx) => (
-            <CertificateCard key={idx} {...cert} />
-          ))}
-        </div>
-        <div className='mt-3 text-center'>
-          <a
-            className='bg-danger rounded-lg px-4 py-4 text-center text-sm text-white transition-colors hover:bg-pink-300 dark:hover:bg-pink-900'
-            href='/certificates'
-          >
-            More Certificates...
-          </a>
-        </div>
+
+        {certificates.length === 0 ? (
+          <p className='text-center text-gray-600 dark:text-gray-300'>
+            No Certificates.
+          </p>
+        ) : (
+          <>
+            <div className='grid gap-6 md:gap-2'>
+              {certificates.map((cert, idx) => (
+                <CertificateCard key={idx} {...cert} />
+              ))}
+            </div>
+            <div className='mt-3 text-center'>
+              <a
+                className='bg-danger rounded-lg px-4 py-4 text-center text-sm text-white transition-colors hover:bg-pink-300 dark:hover:bg-pink-900'
+                href='/certificates'
+              >
+                More Certificates...
+              </a>
+            </div>
+          </>
+        )}
       </div>
       <Divider data-testid='divider' className='mx-auto max-w-3xl' />
     </section>
