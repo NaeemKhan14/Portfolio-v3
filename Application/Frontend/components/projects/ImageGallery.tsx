@@ -48,6 +48,7 @@ export default function ImageGallery({ images }: Props) {
         <div
           className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4'
           onClick={() => setSelectedImage(null)}
+          data-testid="modal-backdrop"
         >
           <div className='relative h-full max-h-[90vh] w-full max-w-4xl'>
             <Image

@@ -1,71 +1,83 @@
-// import { render, screen } from '@testing-library/react'
-// import { useRouter } from 'next/navigation'
-// import ProjectsList from '../ProjectsList'
+import { render, screen } from '@testing-library/react'
+import { useRouter } from 'next/navigation'
+import ProjectsList from '../ProjectsList'
+import userEvent from '@testing-library/user-event'
 
-// jest.mock('next/navigation', () => ({
-//   useRouter: jest.fn(),
-// }))
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}))
 
-// const mockPush = jest.fn()
+const mockProjects: ProjectList[] = [
+  {
+    id: 'proj-1',
+    slug: 'next-dashboard',
+    title: 'Next.js Dashboard',
+    short_desc:
+      'An interactive admin panel built with Next.js and Tailwind CSS.',
+  },
+  {
+    id: 'proj-2',
+    slug: 'ai-chatbot',
+    title: 'AI Chatbot',
+    short_desc: 'A conversational chatbot powered by GPT-4.',
+  },
+]
 
-// const mockProjects = [
-//   {
-//     id: 1,
-//     slug: 'next-dashboard',
-//     title: 'Next.js Dashboard',
-//     short_desc:
-//       'An interactive admin panel built with Next.js and Tailwind CSS.',
-//   },
-//   {
-//     id: 2,
-//     slug: 'ai-chatbot',
-//     title: 'AI Chatbot',
-//     short_desc: 'A conversational chatbot powered by GPT-4.',
-//   },
-// ]
+describe('ProjectsList', () => {
+  let mockPush: jest.Mock
 
-// describe('ProjectsList', () => {
-//   beforeEach(() => {
-//     ;(useRouter as jest.Mock).mockReturnValue({ push: mockPush })
-//     jest.clearAllMocks()
-//   })
+  beforeEach(() => {
+    mockPush = jest.fn()
+    ;(useRouter as jest.Mock).mockReturnValue({ push: mockPush })
+    jest.clearAllMocks()
+  })
 
-//   it('renders section heading', () => {
-//     render(<ProjectsList projects={mockProjects} />)
-//     expect(
-//       screen.getByRole('heading', { name: /Projects/i }),
-//     ).toBeInTheDocument()
-//   })
+  it('renders section heading', () => {
+    render(<ProjectsList projects={mockProjects} />)
+    expect(
+      screen.getByRole('heading', { name: 'Projects' }),
+    ).toBeInTheDocument()
+    expect(screen.getByTestId('divider')).toBeInTheDocument()
+  })
 
-//   it('renders individual project cards', () => {
-//     render(<ProjectsList projects={mockProjects} />)
-//     mockProjects.forEach((project) => {
-//       expect(screen.getByText(project.title)).toBeInTheDocument()
-//       expect(screen.getByText(project.short_desc)).toBeInTheDocument()
-//     })
-//   })
+  it('renders individual project cards', () => {
+    render(<ProjectsList projects={mockProjects} />)
 
-//   it('renders empty state when no projects are passed', () => {
-//     render(<ProjectsList projects={[]} />)
-//     expect(screen.getByText('No projects yet')).toBeInTheDocument()
-//     expect(screen.getByText(/Check back soon/i)).toBeInTheDocument()
-//   })
+    mockProjects.forEach((project) => {
+      expect(screen.getByText(project.title)).toBeInTheDocument()
+      expect(screen.getByText(project.short_desc)).toBeInTheDocument()
+    })
 
-//   it('prevents card navigation when link is clicked', () => {
-//     render(<ProjectsList projects={mockProjects} />)
-//     const links = screen.getAllByRole('link', { name: 'Read more' })
-//     const firstLink = links[0]
+    const readMoreLinks = screen.getAllByRole('link', { name: 'Read more' })
+    expect(readMoreLinks).toHaveLength(mockProjects.length)
+  })
 
-//     const clickEvent = new MouseEvent('click', {
-//       bubbles: true,
-//       cancelable: true,
-//     })
-//     Object.defineProperty(clickEvent, 'stopPropagation', {
-//       value: jest.fn(),
-//       writable: true,
-//     })
+  it('renders empty state when no projects are passed', () => {
+    render(<ProjectsList projects={[]} />)
+    expect(screen.getByText('No projects yet')).toBeInTheDocument()
+    expect(screen.getByText(/Check back soon/i)).toBeInTheDocument()
+  })
 
-//     firstLink.dispatchEvent(clickEvent)
-//     expect(clickEvent.stopPropagation).toHaveBeenCalled()
-//   })
-// })
+  it('links have correct href attributes', () => {
+    render(<ProjectsList projects={mockProjects} />)
+
+    const readMoreLinks = screen.getAllByRole('link', { name: 'Read more' })
+    mockProjects.forEach((project, index) => {
+      expect(readMoreLinks[index]).toHaveAttribute(
+        'href',
+        `/projects/${project.slug}`,
+      )
+    })
+  })
+
+  it('applies correct styling to cards', () => {
+    render(<ProjectsList projects={mockProjects} />)
+    const cards = screen.getAllByRole('button')
+
+    cards.forEach((card) => {
+      expect(card).toHaveClass('bg-black-900/100')
+      expect(card).toHaveClass('border-gray-500')
+      expect(card).toHaveClass('hover:shadow-md')
+    })
+  })
+})
