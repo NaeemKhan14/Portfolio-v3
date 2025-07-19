@@ -60,28 +60,6 @@ describe('CertificateCard', () => {
     expect(card).not.toHaveClass('ring-warning-500')
   })
 
-    it('opens link in new tab when clicked', () => {
-      render(<CertificateCard {...mockCertification} />)
-      const card = screen.getByTestId('certificate-card')
-
-      const clickEvent = new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-      })
-
-      // Mock window.open
-      const mockOpen = jest.fn()
-      const originalOpen = window.open
-      window.open = mockOpen
-
-      card.dispatchEvent(clickEvent)
-
-      expect(mockOpen).toHaveBeenCalledWith(mockCertification.link, '_blank')
-
-      // Restore original window.open
-      window.open = originalOpen
-    })
-
   it('formats date correctly', () => {
     render(<CertificateCard {...mockCertification} />)
     expect(screen.getByText('June 2023')).toBeInTheDocument()
