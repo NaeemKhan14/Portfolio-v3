@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: 'naeemkhan.dev',
         pathname: '/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'backend',
+        pathname: '/api/media/file/**',
+      },
     ],
   },
   experimental: {
