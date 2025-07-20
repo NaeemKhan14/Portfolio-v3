@@ -1,7 +1,7 @@
 import { Access, AccessArgs } from 'payload'
 
 // User is admin and is logged in
-const isAdminLoggedIn = ({ req }: AccessArgs): boolean => {
+const isAdmin = ({ req }: AccessArgs): boolean => {
   return req.user?.role === 'admin'
 }
 
@@ -9,10 +9,10 @@ const isAdminLoggedIn = ({ req }: AccessArgs): boolean => {
 export const allowPublicRead: Access = () => true
 
 // Admin-only access
-export const adminOnlyCreate: Access = isAdminLoggedIn
-export const adminOnlyUpdate: Access = isAdminLoggedIn
-export const adminOnlyDelete: Access = isAdminLoggedIn
-export const adminOnlyRead: Access = isAdminLoggedIn
+export const adminOnlyCreate: Access = isAdmin
+export const adminOnlyUpdate: Access = isAdmin
+export const adminOnlyDelete: Access = isAdmin
+export const adminOnlyRead: Access = isAdmin
 
 // restrict to admin-only, including read:
 export const strictAdminOnlyAccess = {
