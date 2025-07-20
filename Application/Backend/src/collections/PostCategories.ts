@@ -1,9 +1,8 @@
-import { CollectionConfig } from 'payload';
+import { apiReadOnlyAccess } from '@/access/defaultAccess'
+import { CollectionConfig } from 'payload'
 
 const PostCategories: CollectionConfig = {
-  access: {
-    read: () => true,
-  },
+  access: apiReadOnlyAccess,
   slug: 'post-categories',
   admin: {
     useAsTitle: 'name',
@@ -16,6 +15,6 @@ const PostCategories: CollectionConfig = {
       unique: true,
     },
   ],
-};
+}
 
-export default PostCategories;
+export default PostCategories

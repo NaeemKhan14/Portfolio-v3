@@ -1,11 +1,9 @@
+import { apiReadOnlyAccess } from '@/access/defaultAccess'
 import type { CollectionConfig } from 'payload'
-import path from 'path'
 
-export const Media: CollectionConfig = {
+const Media: CollectionConfig = {
   slug: 'media',
-  access: {
-    read: () => true,
-  },
+  access: apiReadOnlyAccess,
   fields: [
     {
       name: 'alt',
@@ -40,6 +38,8 @@ export const Media: CollectionConfig = {
         position: 'centre',
       },
     ],
-    adminThumbnail: 'thumbnail'
+    adminThumbnail: 'thumbnail',
   },
 }
+
+export default Media

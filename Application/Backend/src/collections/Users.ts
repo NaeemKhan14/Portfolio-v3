@@ -1,13 +1,25 @@
+import { strictUsersAccess } from '@/access/defaultAccess'
 import { CollectionConfig } from 'payload'
 
-export const Users: CollectionConfig = {
+const Users: CollectionConfig = {
   slug: 'users',
+  auth: {
+    depth: 0,
+    maxLoginAttempts: 5,
+  },
   admin: {
     useAsTitle: 'email',
   },
-  auth: true,
+  access: strictUsersAccess,
   fields: [
-    // Email added by default
-    // Add more fields as needed
+    {
+      name: 'role',
+      type: 'select',
+      options: ['admin'],
+      required: true,
+      defaultValue: 'admin',
+    },
   ],
 }
+
+export default Users

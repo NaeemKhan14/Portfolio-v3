@@ -1,9 +1,8 @@
-import { CollectionConfig } from 'payload';
+import { apiReadOnlyAccess } from '@/access/defaultAccess'
+import { CollectionConfig } from 'payload'
 
 const Projects: CollectionConfig = {
-  access: {
-    read: () => true,
-  },
+  access: apiReadOnlyAccess,
   slug: 'projects',
   admin: {
     useAsTitle: 'title',
@@ -42,6 +41,6 @@ const Projects: CollectionConfig = {
       type: 'text',
     },
   ],
-};
+}
 
-export default Projects;
+export default Projects
