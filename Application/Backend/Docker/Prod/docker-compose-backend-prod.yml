@@ -1,0 +1,38 @@
+volumes:
+  mongo-data-prod:
+
+networks:
+  portfolio-network-prod:
+    driver: bridge
+
+services:
+  mongo:
+    image: mongo:8.0
+    container_name: mongo-prod
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data-prod:/data/db
+    networks:
+      - portfolio-network-prod
+
+  backend:
+    build:
+      context: ../../
+      dockerfile: Docker/Prod/Dockerfile-prod
+    container_name: portfolio-backend
+    image: naeemkhan14/portfolio-backend:latest
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    ports:
+      - '3001:3001'
+    env_file:
+      - .env
+    volumes:
+      - /mnt/user/appdata/portfolio-v3/media:/app/media
+    networks:
+      - portfolio-network-prod
+
+

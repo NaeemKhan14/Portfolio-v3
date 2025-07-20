@@ -14,8 +14,9 @@ docker-compose*
 .env*
 .DS_Store
 node_modules/*
-media
+media/*
 *.log
 .env
+.env*
 dist
 build
