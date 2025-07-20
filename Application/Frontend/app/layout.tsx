@@ -51,7 +51,7 @@ export default function RootLayout({
             </main>
             <ScrollToTop />
             <footer className='flex w-full items-center justify-center py-3'>
-              <span className='pr-1'>© 2022 All Rights Reserved.</span>
+              <span className='pr-1'>© 2025 All Rights Reserved.</span>
               <span className='text-default-600 pr-1'>Powered by</span>
 
               <Link
