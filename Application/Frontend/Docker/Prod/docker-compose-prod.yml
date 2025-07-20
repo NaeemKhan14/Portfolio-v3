@@ -1,0 +1,18 @@
+services:
+  frontend:
+    container_name: portfolio-frontend
+    image: naeemkhan14/portfolio-frontend:latest
+    build:
+      context: ../../
+      dockerfile: Docker/Prod/Dockerfile-prod
+    env_file:
+      - .env.production
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - portfolio-network-prod
+
+networks:
+  portfolio-network-prod:
+    driver: bridge

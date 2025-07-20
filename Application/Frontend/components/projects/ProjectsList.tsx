@@ -14,7 +14,7 @@ export default function ProjectsList({
   return (
     <div className='mx-auto flex flex-col md:max-w-2xl'>
       <h1 className='mb-6 text-center text-3xl font-bold'>Projects</h1>
-      <Divider className='mb-8' data-testid="divider"/>
+      <Divider className='mb-8' data-testid='divider' />
 
       {projects.length === 0 ? (
         <div className='py-12 text-center'>

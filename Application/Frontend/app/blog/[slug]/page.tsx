@@ -18,8 +18,6 @@ export default async function BlogPostPage({ params }: PageParams) {
 
   if (!post) return notFound()
 
-  const date = post.date ? new Date(post.date) : null
-
   return (
     <div className='mx-auto max-w-2xl px-4 py-8'>
       <h1 className='mb-4 text-4xl font-bold'>{post.title}</h1>

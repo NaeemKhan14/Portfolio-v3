@@ -14,7 +14,7 @@ jest.mock('@/lib/api-fetcher', () => ({
 
 const mockCategory: BlogPostCategory = {
   id: 'cat-1',
-  name: 'Technology'
+  name: 'Technology',
 }
 
 const mockPost: BlogPost = {
@@ -24,7 +24,7 @@ const mockPost: BlogPost = {
   short_desc: 'This is a short description',
   date: new Date('2023-06-15'),
   mdxContent: 'This is test content.',
-  category: mockCategory
+  category: mockCategory,
 }
 
 describe('BlogPostPage', () => {
@@ -35,7 +35,7 @@ describe('BlogPostPage', () => {
   it('renders post data correctly', async () => {
     // Mock successful API response
     ;(fetchFromApi as jest.Mock).mockResolvedValue({
-      docs: [mockPost]
+      docs: [mockPost],
     })
 
     const params = { slug: mockPost.slug }
@@ -43,7 +43,9 @@ describe('BlogPostPage', () => {
     render(container)
 
     // Verify all content renders correctly
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(mockPost.title)
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      mockPost.title,
+    )
     expect(screen.getByText(mockCategory.name)).toBeInTheDocument()
     expect(screen.getByText('15 June, 2023')).toBeInTheDocument()
     expect(screen.getByText('This is test content.')).toBeInTheDocument()
@@ -52,24 +54,26 @@ describe('BlogPostPage', () => {
   it('handles not found posts', async () => {
     // Mock empty response
     ;(fetchFromApi as jest.Mock).mockResolvedValue({
-      docs: []
+      docs: [],
     })
 
     const params = { slug: 'non-existent-post' }
     const notFound = require('next/navigation').notFound
-    
+
     await BlogPostPage({ params })
-    
+
     expect(notFound).toHaveBeenCalled()
   })
 
   it('formats date correctly', async () => {
     const testDate = new Date('2023-12-25')
     ;(fetchFromApi as jest.Mock).mockResolvedValue({
-      docs: [{
-        ...mockPost,
-        date: testDate
-      }]
+      docs: [
+        {
+          ...mockPost,
+          date: testDate,
+        },
+      ],
     })
 
     const params = { slug: mockPost.slug }
@@ -78,5 +82,4 @@ describe('BlogPostPage', () => {
 
     expect(screen.getByText('25 December, 2023')).toBeInTheDocument()
   })
-
 })
