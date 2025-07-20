@@ -48,35 +48,37 @@ export default buildConfig({
   ],
   // Seed default admin user on start
   onInit: async (payload) => {
-    const existingAdmins = await payload.find({
-      collection: 'users',
-      where: {
-        role: { equals: 'admin' },
-      },
-    })
-
-    if (existingAdmins.totalDocs === 0) {
-      const email = process.env.ADMIN_EMAIL
-      const password = process.env.ADMIN_PASSWORD
-
-      if (!email || !password) {
-        throw new Error(
-          'Missing ADMIN_EMAIL or ADMIN_PASSWORD in environment variables for admin auto-seed',
-        )
-      }
-
-      await payload.create({
+    if (process.env.DISABLE_ADMIN_SEED !== 'true' && process.env.NODE_ENV !== 'development') {
+      const existingAdmins = await payload.find({
         collection: 'users',
-        data: {
-          email,
-          password,
-          role: 'admin',
+        where: {
+          role: { equals: 'admin' },
         },
       })
 
-      console.log(`Seeded initial admin user: ${email}`)
-    } else {
-      console.log('Admin user already exist')
+      if (existingAdmins.totalDocs === 0) {
+        const email = process.env.ADMIN_EMAIL
+        const password = process.env.ADMIN_PASSWORD
+
+        if (!email || !password) {
+          throw new Error(
+            'Missing ADMIN_EMAIL or ADMIN_PASSWORD in environment variables for admin auto-seed',
+          )
+        }
+
+        await payload.create({
+          collection: 'users',
+          data: {
+            email,
+            password,
+            role: 'admin',
+          },
+        })
+
+        console.log(`Seeded initial admin user: ${email}`)
+      } else {
+        console.log('Admin user already exist')
+      }
     }
   },
 })
