@@ -8,8 +8,7 @@ export async function fetchFromApi<T>(
   }
 
   const res = await fetch(`${baseUrl}${endpoint}`, {
-    cache: 'no-store',
-    next: { revalidate: 60 },
+    cache: 'no-store'
   })
 
   if (!res.ok) {
