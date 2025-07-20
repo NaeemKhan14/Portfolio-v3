@@ -9,7 +9,7 @@ services:
       - .env.production
     restart: always
     ports:
-      - 3000:3000
+      - 3501:3501
     networks:
       - portfolio-network-prod
 
