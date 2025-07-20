@@ -16,9 +16,15 @@ import { usePathname } from 'next/navigation'
 
 import { siteConfig } from '@/config/site'
 import { ThemeSwitch } from '../theme-switch'
+import React from 'react'
 
 const Navbar = () => {
   const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false)
+  }
 
   return (
     <HeroUINavbar
@@ -26,6 +32,8 @@ const Navbar = () => {
       className='container mx-auto max-w-3xl md:mt-5'
       maxWidth='md'
       position='sticky'
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
     >
       {/* Desktop Nav */}
       <NavbarContent className='sm:basis-full' justify='start'>
@@ -82,6 +90,7 @@ const Navbar = () => {
                   color={isActive ? 'danger' : 'foreground'}
                   href={item.href}
                   size='lg'
+                  onClick={handleLinkClick}
                 >
                   {item.label}
                 </Link>
