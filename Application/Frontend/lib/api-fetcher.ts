@@ -12,7 +12,7 @@ export async function fetchFromApi<T>(
   })
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch ${endpoint}`)
+    throw new Error(`Failed to fetch data for ${endpoint}`)
   }
 
   return res.json()

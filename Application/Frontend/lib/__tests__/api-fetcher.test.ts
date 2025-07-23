@@ -27,7 +27,7 @@ describe('fetchFromApi', () => {
 
     expect(global.fetch).toHaveBeenCalledWith(
       'https://localhost:3001/api/test',
-      expect.objectContaining({ next: { revalidate: 60 } }),
+      expect.objectContaining({ cache: 'no-store' }),
     )
     expect(result).toEqual(mockData)
   })
@@ -47,6 +47,6 @@ describe('fetchFromApi', () => {
       status: 404,
     })
 
-    await expect(fetchFromApi('/test')).rejects.toThrow('Failed to fetch /test')
+    await expect(fetchFromApi('/test')).rejects.toThrow('Failed to fetch data for /test')
   })
 })
