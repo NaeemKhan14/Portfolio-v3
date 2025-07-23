@@ -3,8 +3,14 @@ import { fetchFromApi } from '@/lib/api-fetcher'
 import { Divider } from '@heroui/react'
 
 export default async function CertificatesPage() {
-  const data = await fetchFromApi<Certificate>('/certificates?sort=-date')
-  const certificates = data.docs
+  const certificates: Certificate[] = []
+
+  try {
+    const data = await fetchFromApi<Certificate>('/certificates?sort=-date')
+    const certificates = data.docs
+  } catch (error) {
+    throw new Error('Error in retrieving certificates from the server')
+  }
 
   return (
     <div className='mx-auto flex flex-col md:max-w-2xl'>

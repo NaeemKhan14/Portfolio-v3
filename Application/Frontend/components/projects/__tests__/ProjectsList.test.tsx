@@ -1,10 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { useRouter } from 'next/navigation'
 import ProjectsList from '../ProjectsList'
+import { fetchFromApi } from '@/lib/api-fetcher'
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }))
+
+jest.mock('@/lib/api-fetcher')
 
 const mockProjects: ProjectList[] = [
   {
@@ -79,4 +82,15 @@ describe('ProjectsList', () => {
       expect(card).toHaveClass('hover:shadow-md')
     })
   })
+
+    it('throws a custom error when fetchFromApi fails', async () => {
+      const mockFetch = fetchFromApi as jest.Mock
+      mockFetch.mockRejectedValueOnce(new Error('Error in retrieving projects from the server'))
+  
+      const { default: ProjectsPage } = await import('../../../app/projects/page')
+  
+      await expect(ProjectsPage()).rejects.toThrow(
+        'Error in retrieving projects from the server',
+      )
+    })
 })

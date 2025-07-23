@@ -1,11 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import BlogPostsList from '../BlogPostsList'
+import { fetchFromApi } from '@/lib/api-fetcher'
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn().mockReturnValue({
     push: jest.fn(),
   }),
 }))
+
+jest.mock('@/lib/api-fetcher')
 
 describe('BlogPostsList', () => {
   beforeEach(() => {
@@ -48,4 +51,16 @@ describe('BlogPostsList', () => {
     const readMoreLink = screen.getByRole('link', { name: 'Read more' })
     expect(readMoreLink).toHaveAttribute('href', `/blog/${post.slug}`)
   })
+
+  it('throws a custom error when fetchFromApi fails', async () => {
+    const mockFetch = fetchFromApi as jest.Mock
+    mockFetch.mockRejectedValueOnce(new Error('Error in retrieving blog posts from the server'))
+
+    const { default: BlogPage } = await import('../../../app/blog/page')
+
+    await expect(BlogPage()).rejects.toThrow(
+      'Error in retrieving blog posts from the server',
+    )
+  })
+
 })
