@@ -3,11 +3,9 @@
 import { useEffect } from 'react'
 
 export default function Error({
-  error,
-  reset,
+  error
 }: {
   error: Error
-  reset: () => void
 }) {
   useEffect(() => {
     console.error(error)
@@ -27,7 +25,6 @@ export default function Error({
 
         <div className="mt-3">
           <button
-            onClick={reset}
             className='bg-danger rounded-lg px-4 py-2 text-center text-sm text-white transition-colors hover:bg-pink-300 dark:hover:bg-pink-900'
           >
             Try again

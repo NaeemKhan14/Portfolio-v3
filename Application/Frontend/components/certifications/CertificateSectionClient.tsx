@@ -25,7 +25,7 @@ export default function CertificateSectionClient() {
   }, [])
 
   if (error) {
-    return <Error error={error} reset={fetchCertificates} />
+    return <Error error={error} />
   }
 
   if (!certificates) {
