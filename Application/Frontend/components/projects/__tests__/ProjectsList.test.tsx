@@ -89,7 +89,7 @@ describe('ProjectsList', () => {
   
       const { default: ProjectsPage } = await import('../../../app/projects/page')
   
-      await expect(ProjectsPage()).rejects.toThrow(
+      await expect(ProjectsPage({ searchParams: { page: '1' } })).rejects.toThrow(
         'Error in retrieving projects from the server',
       )
     })

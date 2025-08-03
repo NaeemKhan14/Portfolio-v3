@@ -56,7 +56,7 @@ describe('BlogPostsList', () => {
 
     const { default: BlogPage } = await import('../../../app/blog/page')
 
-    await expect(BlogPage()).rejects.toThrow(
+    await expect(BlogPage({ searchParams: { page: '1' } })).rejects.toThrow(
       'Error in retrieving blog posts from the server',
     )
   })
