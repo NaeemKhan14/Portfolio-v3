@@ -41,9 +41,7 @@ describe('BlogPostsList', () => {
     expect(screen.getByText(post.short_desc)).toBeInTheDocument()
     expect(screen.getByText(post.category.name)).toBeInTheDocument()
     expect(screen.getByText(/Read more/i)).toBeInTheDocument()
-    expect(
-      screen.getByText(new Date(post.date).toLocaleDateString()),
-    ).toBeInTheDocument()
+    expect(screen.getByText('01/01/2023')).toBeInTheDocument()
   })
 
   it('has correct link for posts', () => {
