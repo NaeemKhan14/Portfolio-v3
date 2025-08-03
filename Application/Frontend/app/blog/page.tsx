@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation'
 export default async function BlogPage({ searchParams }: { searchParams?: { page?: string } }) {
   const pageNum = await searchParams
   const currentPage = Number(pageNum?.page || 1)
-  const limit = 2
+  const limit = 4
 
   try {
     const data = await fetchFromApi<ApiResponse<BlogPostList>>(`/posts?sort=Date&depth=1&page=${currentPage}&limit=${limit}`)

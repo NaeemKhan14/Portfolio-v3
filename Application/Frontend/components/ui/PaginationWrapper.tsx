@@ -32,6 +32,7 @@ export function PaginationWrapper({
     <Pagination
       loop
       showControls
+      size='lg'
       color='danger'
       total={totalPages}
       initialPage={currentPage}
