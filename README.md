@@ -4,6 +4,3 @@
 2. Pagination
 3. Add proper MDX support in front end
 4. CI/CD pipelines
-
---
-Add MSC degree in certifications

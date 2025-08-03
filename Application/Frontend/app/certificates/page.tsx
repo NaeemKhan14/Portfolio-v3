@@ -5,7 +5,7 @@ import { Divider } from '@heroui/react'
 export default async function CertificatesPage() {
 
   try {
-    const data = await fetchFromApi<Certificate>('/certificates?sort=-date')
+    const data = await fetchFromApi<Certificate>('/certificates?sort=-type,-date')
     const certificates = data.docs
 
     return (
