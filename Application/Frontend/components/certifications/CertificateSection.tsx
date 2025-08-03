@@ -1,10 +1,11 @@
 import { fetchFromApi } from '@/lib/api-fetcher'
 import { CertificateCard } from './CertificateCard'
 import { Divider } from '@heroui/react'
+import { ApiResponse } from '@/types/apiResponse'
 
 export default async function CertificateSection() {
   try {
-    const data = await fetchFromApi<Certificate>(
+    const data = await fetchFromApi<ApiResponse<Certificate>>(
       '/certificates?sort=-type,-date&limit=2',
     )
     const certificates = data.docs

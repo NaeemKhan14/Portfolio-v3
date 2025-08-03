@@ -1,5 +1,6 @@
 import ImageGallery from '@/components/projects/ImageGallery'
 import { fetchFromApi } from '@/lib/api-fetcher'
+import { ApiResponse } from '@/types/apiResponse'
 import { Divider } from '@heroui/react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -12,7 +13,7 @@ type PageParams = {
 
 export default async function ProjectDetailPage({ params }: PageParams) {
   const param = await params
-  const data = await fetchFromApi<Project>(
+  const data = await fetchFromApi<ApiResponse<Project>>(
     `/projects?where[slug][equals]=${param.slug}&depth=1`,
   )
   const project = data?.docs?.[0]

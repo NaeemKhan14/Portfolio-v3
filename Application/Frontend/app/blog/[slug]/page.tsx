@@ -1,4 +1,5 @@
 import { fetchFromApi } from '@/lib/api-fetcher'
+import { ApiResponse } from '@/types/apiResponse'
 import { Divider } from '@heroui/react'
 import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
@@ -11,7 +12,7 @@ type PageParams = {
 
 export default async function BlogPostPage({ params }: PageParams) {
   const param = await params
-  const data = await fetchFromApi<BlogPost>(
+  const data = await fetchFromApi<ApiResponse<BlogPost>>(
     `/posts?where[slug][equals]=${param.slug}&depth=1`,
   )
   const post = data?.docs?.[0]
