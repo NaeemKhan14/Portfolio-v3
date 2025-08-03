@@ -1,6 +1,6 @@
 export async function fetchFromApi<T>(
   endpoint: string,
-): Promise<{ docs: T[] }> {
+): Promise<T> {
   const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL
 
   if (!baseUrl) {
