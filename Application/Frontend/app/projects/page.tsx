@@ -10,7 +10,7 @@ export default async function ProjectsPage({
   const currentPage = Number(pageNum?.page || 1)
 
   return (
-    <EmptyPageLayout title='Certificates'>
+    <EmptyPageLayout title='Projects'>
       <ProjectsList currentPage={currentPage} />
     </EmptyPageLayout>
   )
