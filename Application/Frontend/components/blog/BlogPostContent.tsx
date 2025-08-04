@@ -1,7 +1,10 @@
+import Error from '@/app/error'
 import { fetchFromApi } from '@/lib/api-fetcher'
+import { remarkResolveCmsImages } from '@/lib/remark-resolve-cms-images'
 import { ApiResponse } from '@/types/ApiResponse'
 import { Divider } from '@heroui/react'
 import { format } from 'date-fns'
+import { MDXRemote, MDXRemoteOptions } from "next-mdx-remote-client/rsc"
 import { notFound } from 'next/navigation'
 
 export default async function BlogPostContent({ slug }: { slug: string }) {
@@ -14,6 +17,13 @@ export default async function BlogPostContent({ slug }: { slug: string }) {
 
     if (!post) return notFound()
 
+    const options: MDXRemoteOptions = {
+        mdxOptions: {
+            remarkPlugins: [
+                remarkResolveCmsImages,
+            ],
+        },
+    };
     return (
         <div className='mx-auto flex flex-col md:max-w-2xl'>
             <h1 className='mb-6 text-center text-3xl font-bold'>{post.title}</h1>
@@ -28,7 +38,13 @@ export default async function BlogPostContent({ slug }: { slug: string }) {
 
             <Divider className='mb-8' />
 
-            <div className='prose dark:prose-invert'>{post.mdxContent}</div>
+            <div className='prose dark:prose-invert'>
+                <MDXRemote
+                    source={post.mdxContent}
+                    options={options}
+                    onError={Error}
+                />
+            </div>
         </div>
     )
 }
