@@ -1,96 +1,134 @@
 import { render, screen } from '@testing-library/react'
-import { useRouter } from 'next/navigation'
-import ProjectsList from '../ProjectsList'
 import { fetchFromApi } from '@/lib/api-fetcher'
-
-jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
-}))
+import { notFound } from 'next/navigation'
+import ProjectsList from '../ProjectsList'
 
 jest.mock('@/lib/api-fetcher')
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn().mockReturnValue({
+    push: jest.fn(),
+  }),
+  useSearchParams: jest.fn().mockReturnValue(new URLSearchParams()),
+  usePathname: jest.fn().mockReturnValue('/'),
+  notFound: jest.fn(),
+}))
 
-const mockProjects: ProjectList[] = [
-  {
-    id: 'proj-1',
-    slug: 'next-dashboard',
-    title: 'Next.js Dashboard',
-    short_desc:
-      'An interactive admin panel built with Next.js and Tailwind CSS.',
-  },
-  {
-    id: 'proj-2',
-    slug: 'ai-chatbot',
-    title: 'AI Chatbot',
-    short_desc: 'A conversational chatbot powered by GPT-4.',
-  },
-]
+// Mock ProjectCards with proper implementation
+jest.mock('@/components/projects/ProjectCards', () => ({
+  __esModule: true,
+  default: ({ projects }: { projects: any[] }) => (
+    <div data-testid="project-cards">
+      {projects.map(project => (
+        <div key={project.id}>{project.title}</div>
+      ))}
+    </div>
+  )
+}))
+
+// Mock PaginationWrapper to avoid hook issues
+jest.mock('@/components/ui/PaginationWrapper', () => ({
+  __esModule: true,
+  PaginationWrapper: ({ currentPage, totalPages }: any) => (
+    <div data-testid="pagination-wrapper">
+      Pagination: {currentPage} of {totalPages}
+    </div>
+  )
+}))
+
+const mockApiResponse = {
+  docs: [
+    {
+      id: 'proj-1',
+      slug: 'next-dashboard',
+      title: 'Next.js Dashboard',
+      short_desc: 'An interactive admin panel built with Next.js and Tailwind CSS.',
+    }
+  ],
+  totalPages: 3
+}
 
 describe('ProjectsList', () => {
-  let mockPush: jest.Mock
-
+  const mockFetchFromApi = fetchFromApi as jest.MockedFunction<typeof fetchFromApi>
+  
   beforeEach(() => {
-    mockPush = jest.fn()
-    ;(useRouter as jest.Mock).mockReturnValue({ push: mockPush })
     jest.clearAllMocks()
+    mockFetchFromApi.mockReset()
   })
 
-  it('renders section heading', () => {
-    render(<ProjectsList projects={mockProjects} />)
-    expect(
-      screen.getByRole('heading', { name: 'Projects' }),
-    ).toBeInTheDocument()
-    expect(screen.getByTestId('divider')).toBeInTheDocument()
-  })
+  it('renders "No projects" when there are no projects', async () => {
+    mockFetchFromApi.mockResolvedValueOnce({
+      docs: [],
+      totalPages: 1
+    } as any)
 
-  it('renders individual project cards', () => {
-    render(<ProjectsList projects={mockProjects} />)
-
-    mockProjects.forEach((project) => {
-      expect(screen.getByText(project.title)).toBeInTheDocument()
-      expect(screen.getByText(project.short_desc)).toBeInTheDocument()
-    })
-
-    const readMoreLinks = screen.getAllByRole('link', { name: 'Read more' })
-    expect(readMoreLinks).toHaveLength(mockProjects.length)
-  })
-
-  it('renders empty state when no projects are passed', () => {
-    render(<ProjectsList projects={[]} />)
+    const Component = await ProjectsList({ currentPage: 1 })
+    render(Component)
+    
     expect(screen.getByText('No projects yet')).toBeInTheDocument()
-    expect(screen.getByText(/Check back soon/i)).toBeInTheDocument()
+    expect(screen.getByText('Check back soon for updates!')).toBeInTheDocument()
+    expect(screen.queryByTestId('project-cards')).not.toBeInTheDocument()
   })
 
-  it('links have correct href attributes', () => {
-    render(<ProjectsList projects={mockProjects} />)
+  it('renders projects when data is available', async () => {
+    mockFetchFromApi.mockResolvedValueOnce(mockApiResponse as any)
 
-    const readMoreLinks = screen.getAllByRole('link', { name: 'Read more' })
-    mockProjects.forEach((project, index) => {
-      expect(readMoreLinks[index]).toHaveAttribute(
-        'href',
-        `/projects/${project.slug}`,
-      )
-    })
+    const Component = await ProjectsList({ currentPage: 1 })
+    render(Component)
+    
+    expect(screen.getByTestId('project-cards')).toBeInTheDocument()
+    expect(screen.getByText('Next.js Dashboard')).toBeInTheDocument()
   })
 
-  it('applies correct styling to cards', () => {
-    render(<ProjectsList projects={mockProjects} />)
-    const cards = screen.getAllByRole('button')
+  it('shows pagination when multiple pages exist', async () => {
+    mockFetchFromApi.mockResolvedValueOnce({
+      ...mockApiResponse,
+      totalPages: 3
+    } as any)
 
-    cards.forEach((card) => {
-      expect(card).toHaveClass('bg-black-900/100')
-      expect(card).toHaveClass('border-gray-500')
-      expect(card).toHaveClass('hover:shadow-md')
-    })
+    const Component = await ProjectsList({ currentPage: 1 })
+    render(Component)
+    
+    expect(screen.getByTestId('pagination-wrapper')).toBeInTheDocument()
+    expect(screen.getByText(/Pagination: 1 of 3/)).toBeInTheDocument()
   })
 
-    it('throws a custom error when fetchFromApi fails', async () => {
-      const mockFetch = fetchFromApi as jest.Mock
-      mockFetch.mockRejectedValueOnce(new Error('Error in retrieving projects from the server'))
-  
-      const { default: ProjectsPage } = await import('../../../app/projects/page')
-  
-      await expect(ProjectsPage({ searchParams: { page: '1' } })).rejects.toThrow(
-        'Error in retrieving projects from the server',
-      )
-    })
+  it('does not show pagination when only one page exists', async () => {
+    mockFetchFromApi.mockResolvedValueOnce({
+      ...mockApiResponse,
+      totalPages: 1
+    } as any)
+
+    const Component = await ProjectsList({ currentPage: 1 })
+    render(Component)
+    
+    expect(screen.queryByTestId('pagination-wrapper')).not.toBeInTheDocument()
+  })
+
+  it('calls notFound when currentPage exceeds totalPages', async () => {
+    mockFetchFromApi.mockResolvedValueOnce({
+      ...mockApiResponse,
+      totalPages: 2
+    } as any)
+
+    await ProjectsList({ currentPage: 3 })
+    expect(notFound).toHaveBeenCalled()
+  })
+
+  it('throws error when API fails', async () => {
+    mockFetchFromApi.mockRejectedValueOnce(new Error('API error'))
+    
+    await expect(ProjectsList({ currentPage: 1 })).rejects.toThrow(
+      'Error in retrieving projects from the server'
+    )
+  })
+
+  it('uses correct API parameters', async () => {
+    mockFetchFromApi.mockResolvedValueOnce(mockApiResponse as any)
+
+    await ProjectsList({ currentPage: 2, limit: 6 })
+    
+    expect(mockFetchFromApi).toHaveBeenCalledWith(
+      '/projects?sort=createdAt&page=2&limit=6'
+    )
+  })
 })

@@ -15,6 +15,7 @@ export default function ProjectCards({
     <>
       {projects.map((project) => (
         <Card
+        role='project'
           key={project.id}
           className='bg-black-900/100 mb-6 border border-gray-500 transition-all hover:shadow-md hover:shadow-gray-400 dark:border-gray-700 dark:hover:shadow-sm dark:hover:shadow-white'
           isHoverable

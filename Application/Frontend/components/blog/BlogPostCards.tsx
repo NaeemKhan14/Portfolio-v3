@@ -11,6 +11,7 @@ export default function BlogPostCards({ posts }: { posts: BlogPostList[] }) {
     <>
       {posts.map((post) => (
         <Card
+          role='blog-post'
           key={post.id}
           className='bg-black-900/100 mb-6 border border-gray-500 transition-all hover:shadow-md hover:shadow-gray-400 dark:border-gray-700 dark:hover:shadow-sm dark:hover:shadow-white'
           isHoverable
