@@ -1,6 +1,6 @@
 import ImageGallery from '@/components/projects/ImageGallery'
 import { fetchFromApi } from '@/lib/api-fetcher'
-import { ApiResponse } from '@/types/apiResponse'
+import { ApiResponse } from '@/types/ApiResponse'
 import { Divider } from '@heroui/react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'

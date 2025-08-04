@@ -1,7 +1,7 @@
 import ProjectsList from '@/components/projects/ProjectsList'
 import { PaginationWrapper } from '@/components/ui/PaginationWrapper'
 import { fetchFromApi } from '@/lib/api-fetcher'
-import { ApiResponse } from '@/types/apiResponse'
+import { ApiResponse } from '@/types/ApiResponse'
 import { notFound } from 'next/navigation'
 
 export default async function ProjectsPage({ searchParams }: { searchParams?: { page?: string } }) {
