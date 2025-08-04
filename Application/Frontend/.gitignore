@@ -45,9 +45,7 @@ next-env.d.ts
 *.db
 *.sql
 /generated/prisma
-/media/*
 node_modules
-media
 *.log
 .env
 dist
