@@ -1,54 +1,47 @@
-'use client'
+import { PaginationWrapper } from '@/components/ui/PaginationWrapper'
+import { fetchFromApi } from '@/lib/api-fetcher'
+import { ApiResponse } from '@/types/ApiResponse'
+import { notFound } from 'next/navigation'
+import ProjectCards from './ProjectCards'
 
-import { Card, CardHeader, CardBody, CardFooter, Divider } from '@heroui/react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-
-export default function ProjectsList({
-  projects,
+export default async function ProjectsList({
+  currentPage,
+  limit = 4
 }: {
-  projects: ProjectList[]
+  currentPage: number
+  limit?: number
 }) {
-  const router = useRouter()
 
-  return (
-    <div className='mx-auto flex flex-col md:max-w-2xl'>
-      <h1 className='mb-6 text-center text-3xl font-bold'>Projects</h1>
-      <Divider className='mb-8' data-testid='divider' />
+  try {
+    const data = await fetchFromApi<ApiResponse<ProjectList>>(`/projects?sort=createdAt&page=${currentPage}&limit=${limit}`)
+    const { docs: projects, totalPages } = data
 
-      {projects.length === 0 ? (
-        <div className='py-12 text-center'>
-          <h2 className='mb-2 text-xl font-semibold'>No projects yet</h2>
-          <p className='text-gray-500'>Check back soon for updates!</p>
-        </div>
-      ) : (
-        projects.map((project) => (
-          <Card
-            key={project.id}
-            className='bg-black-900/100 mb-6 border border-gray-500 transition-all hover:shadow-md hover:shadow-gray-400 dark:border-gray-700 dark:hover:shadow-sm dark:hover:shadow-white'
-            isHoverable
-            isPressable
-            onPress={() => router.push(`/projects/${project.slug}`)}
-          >
-            <CardHeader className='flex flex-col text-2xl font-semibold'>
-              <p>{project.title}</p>
-            </CardHeader>
-            <Divider />
-            <CardBody className='w-full items-center'>
-              <p>{project.short_desc}</p>
-            </CardBody>
-            <CardFooter className='flex justify-end'>
-              <Link
-                className='text-danger text-sm font-medium hover:underline'
-                href={`/projects/${project.slug}`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                Read more
-              </Link>
-            </CardFooter>
-          </Card>
-        ))
-      )}
-    </div>
-  )
+    if (currentPage > totalPages) notFound()
+
+    return (
+      <>
+        {projects.length === 0 ? (
+          <div className='py-12 text-center'>
+            <h2 className='mb-2 text-xl font-semibold'>No projects yet</h2>
+            <p className='text-gray-500'>Check back soon for updates!</p>
+          </div>
+        )
+          : <ProjectCards projects={projects} />
+        }
+
+        {totalPages > 1 && (
+          <div className='mt-10 flex justify-center'>
+            <PaginationWrapper
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          </div>
+        )
+        }
+      </>
+
+    )
+  } catch {
+    throw new Error('Error in retrieving projects from the server')
+  }
 }

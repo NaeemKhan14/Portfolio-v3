@@ -1,7 +1,4 @@
-import { Divider } from '@heroui/react'
-import { Suspense } from 'react'
-import CertificatesList from './CertificatesList'
-import LoadingSpinner from '@/components/ui/LoadingSpinner'
+import CertificatesList from '@/components/certifications/CertificatesList'
 import EmptyPageLayout from '@/components/ui/EmptyPageWrapper'
 
 export default async function CertificatesPage({ 

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import BlogPostsList from '../BlogPostsList'
+import BlogPostsList from '../BlogPostCards'
 import { fetchFromApi } from '@/lib/api-fetcher'
 
 jest.mock('next/navigation', () => ({
