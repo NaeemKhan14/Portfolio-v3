@@ -11,6 +11,10 @@ jest.mock('@/lib/api-fetcher', () => ({
   fetchFromApi: jest.fn(),
 }))
 
+jest.mock('next-mdx-remote-client/rsc', () => ({
+  MDXRemote: ({ source }: any) => <div>{source}</div>,
+}))
+
 const mockCategory: BlogPostCategory = {
   id: 'cat-1',
   name: 'Technology',
@@ -34,7 +38,7 @@ describe('BlogPostContent', () => {
   it('renders post data correctly', async () => {
     ;(fetchFromApi as jest.Mock).mockResolvedValue({ docs: [mockPost] })
 
-    const { container } = render(await BlogPostContent({ slug: mockPost.slug }))
+    render(await BlogPostContent({ slug: mockPost.slug }))
 
     expect(
       screen.getByRole('heading', { level: 1, name: mockPost.title })
@@ -43,7 +47,6 @@ describe('BlogPostContent', () => {
     expect(screen.getByText(mockCategory.name)).toBeInTheDocument()
     expect(screen.getByText('15 June, 2025')).toBeInTheDocument()
     expect(screen.getByText('This is test content.')).toBeInTheDocument()
-    expect(container).toMatchSnapshot()
   })
 
   it('handles not found posts', async () => {

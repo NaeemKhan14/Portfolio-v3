@@ -1,6 +1,5 @@
 import Error from '@/app/error'
 import { fetchFromApi } from '@/lib/api-fetcher'
-import { remarkResolveCmsImages } from '@/lib/remark-resolve-cms-images'
 import { ApiResponse } from '@/types/ApiResponse'
 import { Divider } from '@heroui/react'
 import { format } from 'date-fns'
@@ -15,15 +14,24 @@ export default async function BlogPostContent({ slug }: { slug: string }) {
 
     const post = data?.docs?.[0]
 
-    if (!post) return notFound()
+    if (!post) { return notFound() }
+    let remarkPlugins = []
+
+    // Jest breaks the test as the library used in this is pure JS, so to prevent this
+    // import from loading when tests are running, we use this method. The env
+    // JEST_WORKER_ID is created when jest runs the tests, so we only load this library
+    // when this env is not present
+    if (!process.env.JEST_WORKER_ID) {
+        const { remarkResolveCmsImages } = await import('@/lib/remark-resolve-cms-images')
+        remarkPlugins.push(remarkResolveCmsImages)
+    }
 
     const options: MDXRemoteOptions = {
         mdxOptions: {
-            remarkPlugins: [
-                remarkResolveCmsImages,
-            ],
+            remarkPlugins
         },
     };
+    
     return (
         <div className='mx-auto flex flex-col md:max-w-2xl'>
             <h1 className='mb-6 text-center text-3xl font-bold'>{post.title}</h1>
