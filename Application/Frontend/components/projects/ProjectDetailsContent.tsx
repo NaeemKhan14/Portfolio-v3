@@ -14,7 +14,12 @@ export default async function ProjectDetailsContent({ slug }: { slug: string }) 
 
     if (!project) return notFound()
 
-    const images = Array.isArray(project.images) ? project.images : []
+    const images = Array.isArray(project.images)
+        ? project.images.map((img) => ({
+            ...img,
+            url: `/api/proxy/media/${img.url.split('/').pop()}`
+        }))
+        : []
 
     return (
         <div className='mx-auto flex flex-col md:max-w-2xl'>

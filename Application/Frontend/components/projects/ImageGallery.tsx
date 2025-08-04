@@ -7,19 +7,9 @@ type Props = {
   images: ProjectImages[]
 }
 
-function normalizeImageUrl(url: string): string {
-  const base = process.env.NEXT_PUBLIC_CMS_API_URL || ''
-
-  // If url already starts with http(s), return as is
-  if (url.startsWith('http://') || url.startsWith('https://')) return url
-
-  // Strip extra `/api` to avoid `/api/api/...`
-  return `${base}${url.replace(/^\/api/, '')}`
-}
-
 export default function ImageGallery({ images }: Props) {
   const [selectedImage, setSelectedImage] = useState<ProjectImages | null>(null)
-
+  
   return (
     <>
       <div className='mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2'>
@@ -30,12 +20,12 @@ export default function ImageGallery({ images }: Props) {
             onClick={() =>
               setSelectedImage({
                 ...img,
-                url: normalizeImageUrl(img.url),
+                url: img.url,
               })
             }
           >
             <Image
-              src={normalizeImageUrl(img.url)}
+              src={img.url}
               alt={img.alt || `Project Image ${index + 1}`}
               fill
               className='rounded-lg border object-cover'

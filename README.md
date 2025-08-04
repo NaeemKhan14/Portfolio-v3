@@ -1,5 +1,4 @@
 # Todo List
 
-1. Add proper MDX support in front end
-2. Add logging (nginx) to prod containers
-3. CI/CD pipelines
+1. Add logging (nginx) to prod containers
+2. CI/CD pipelines
