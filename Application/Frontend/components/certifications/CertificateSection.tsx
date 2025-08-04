@@ -1,7 +1,7 @@
 import { fetchFromApi } from '@/lib/api-fetcher'
 import { CertificateCard } from './CertificateCard'
 import { Divider } from '@heroui/react'
-import { ApiResponse } from '@/types/apiResponse'
+import { ApiResponse } from '@/types/ApiResponse'
 
 export default async function CertificateSection() {
   try {
