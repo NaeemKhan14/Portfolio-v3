@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { GithubIcon, LinkedinIcon } from '../ui/icons'
 import Link from 'next/link'
 import { Chip, Divider } from '@heroui/react'
+import DownloadButton from '@/hooks/DownloadButton'
 
 export default function AboutSection() {
   return (
@@ -55,20 +56,14 @@ export default function AboutSection() {
               </div>
 
               <div className='grid w-full grid-cols-2 gap-3 md:grid-cols-1'>
-                <Link
-                  aria-label='Cybersecurity CV'
-                  href='cv/Naeem Khan CV (Cyber Security).pdf'
-                  className='bg-danger rounded py-2.5 text-center text-sm text-white transition-colors hover:bg-pink-300 dark:hover:bg-pink-900'
-                >
-                  Cybersecurity CV
-                </Link>
-                <Link
-                  aria-label='Software Developer CV'
-                  href='cv/Naeem Khan CV.pdf'
-                  className='bg-danger rounded py-2.5 text-center text-sm text-white transition-colors hover:bg-pink-300 dark:hover:bg-pink-900'
-                >
-                  Software Developer CV
-                </Link>
+                <DownloadButton
+                  label='Cybersecurity CV'
+                  filename='Naeem Khan CV (Cyber Security).pdf'
+                />
+                <DownloadButton
+                  label='Software Developer CV'
+                  filename='Naeem Khan CV.pdf'
+                />
               </div>
             </div>
           </div>
