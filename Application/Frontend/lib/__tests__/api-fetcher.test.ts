@@ -15,7 +15,7 @@ describe('fetchFromApi', () => {
   })
 
   it('fetches data successfully', async () => {
-    process.env.NEXT_PUBLIC_CMS_API_URL = 'https://localhost:3001/api'
+    process.env.CMS_INTERNAL_URL = 'https://localhost:3001/api'
     const mockData = { docs: [{ id: '1', title: 'Test' }] }
 
     ;(global.fetch as jest.Mock).mockResolvedValueOnce({
@@ -33,15 +33,15 @@ describe('fetchFromApi', () => {
   })
 
   it('throws error when API URL is not defined', async () => {
-    delete process.env.NEXT_PUBLIC_CMS_API_URL
+    delete process.env.CMS_INTERNAL_URL
 
     await expect(fetchFromApi('/test')).rejects.toThrow(
-      'NEXT_PUBLIC_CMS_API_URL is not defined',
+      'CMS_INTERNAL_URL is not defined',
     )
   })
 
   it('throws error when fetch fails', async () => {
-    process.env.NEXT_PUBLIC_CMS_API_URL = 'https://localhost:3001/api'
+    process.env.CMS_INTERNAL_URL = 'https://localhost:3001/api'
     ;(global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
       status: 404,

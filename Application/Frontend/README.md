@@ -3,7 +3,7 @@
 To run this project (via CLI or Docker), you need the following environment variables:
 
 ```
-NEXT_PUBLIC_CMS_API_URL=http://backend:3001/api
+CMS_INTERNAL_URL=http://backend:3001/api
 NODE_ENV=development
 ```
 
@@ -32,7 +32,7 @@ Production config lives in `Docker/Prod/`.
 2. Create an `.env.production` file in the root with following variable only (no need for Node_env variable as it is handled by Dockerfile):
 
 ```
-NEXT_PUBLIC_CMS_API_URL=http://backend:3001/api
+CMS_INTERNAL_URL=http://backend:3001/api
 ```
 
 The main production build is meant to be run alongside the backend and database.
