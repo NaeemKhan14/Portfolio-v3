@@ -13,7 +13,7 @@ const Media: CollectionConfig = {
   ],
   upload: {
     staticDir: 'media',
-    mimeTypes: ['image/*', 'video/*'],
+    mimeTypes: ['image/*', 'video/*', 'application/pdf'],
     adminThumbnail: 'thumbnail',
   },
 }
