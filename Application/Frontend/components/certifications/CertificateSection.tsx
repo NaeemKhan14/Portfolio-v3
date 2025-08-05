@@ -2,6 +2,7 @@ import { fetchFromApi } from '@/lib/api-fetcher'
 import { CertificateCard } from './CertificateCard'
 import { Divider } from '@heroui/react'
 import { ApiResponse } from '@/types/ApiResponse'
+import MoreCertificatesButton from '@/hooks/MoreCertificatesButton'
 
 export default async function CertificateSection() {
   try {
@@ -43,13 +44,7 @@ export default async function CertificateSection() {
                 ))}
               </div>
               <div className='mt-3 text-center'>
-                <a
-                  data-testid='more certificates btn'
-                  className='bg-danger rounded-lg px-4 py-4 text-center text-sm text-white transition-colors hover:bg-pink-300 dark:hover:bg-pink-900'
-                  href='/certificates'
-                >
-                  More Certificates...
-                </a>
+                <MoreCertificatesButton />
               </div>
             </>
           )}
