@@ -32,5 +32,6 @@ services:
       - .env
     volumes:
       - /mnt/user/appdata/portfolio-v3/media:/app/media
+      # - ../../media:/app/media # for Windows testing
     networks:
       - portfolio-network-prod
