@@ -1,7 +1,7 @@
 {
   "name": "backend",
-  "version": "1.0.0",
-  "description": "This was hell to set up for no reason at all",
+  "version": "1.1.0",
+  "description": "CMS for portfolio website",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -25,8 +25,9 @@
     "@payloadcms/ui": "3.47.0",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
+    "esbuild": "^0.25.8",
     "graphql": "^16.8.1",
-    "next": "15.3.2",
+    "next": "^15.4.5",
     "payload": "3.47.0",
     "react": "19.1.0",
     "sharp": "0.34.2"
@@ -58,5 +59,10 @@
       "esbuild",
       "unrs-resolver"
     ]
+  },
+  "overrides": {
+    "tsx": {
+      "esbuild": "0.25.8"
+    }
   }
 }
