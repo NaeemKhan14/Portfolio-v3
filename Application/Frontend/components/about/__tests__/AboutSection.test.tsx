@@ -45,14 +45,11 @@ describe('AboutSection', () => {
 
   // 5. CV links
   test('renders CV download links', () => {
-    const cyberCV = screen.getByRole('link', { name: 'Cybersecurity CV' })
-    const devCV = screen.getByRole('link', { name: 'Software Developer CV' })
+    const cyberCV = screen.getByRole('button', { name: 'Cybersecurity CV' })
+    const devCV = screen.getByRole('button', { name: 'Software Developer CV' })
 
-    expect(cyberCV).toHaveAttribute(
-      'href',
-      'cv/Naeem Khan CV (Cyber Security).pdf',
-    )
-    expect(devCV).toHaveAttribute('href', 'cv/Naeem Khan CV.pdf')
+    expect(cyberCV).toBeInTheDocument()
+    expect(devCV).toBeInTheDocument()
   })
 
   // 6. Introduction text

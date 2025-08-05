@@ -43,7 +43,7 @@ export default async function CertificateSection() {
                   <CertificateCard key={idx} {...cert} />
                 ))}
               </div>
-              <div className='mt-3 text-center'>
+              <div className='mt-3 text-center' data-testid='more certificates btn'>
                 <MoreCertificatesButton />
               </div>
             </>

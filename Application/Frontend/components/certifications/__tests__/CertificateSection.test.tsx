@@ -6,6 +6,16 @@ jest.mock('@/lib/api-fetcher', () => ({
   fetchFromApi: (...args: any[]) => mockFetchFromApi(...args),
 }))
 
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    refresh: jest.fn(),
+    prefetch: jest.fn(),
+    back: jest.fn(),
+  }),
+}))
+
 const mockData = {
   docs: [
     {
@@ -34,11 +44,6 @@ const mockData = {
 describe('CertificateSection', () => {
   beforeEach(() => {
     mockFetchFromApi.mockReset()
-    // Mock the async component behavior
-    jest.mock('react', () => ({
-      ...jest.requireActual('react'),
-      cache: (fn: any) => fn,
-    }))
   })
 
   it('renders section with title and certificates', async () => {
