@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MDXRemote, MDXRemoteOptions } from 'next-mdx-remote-client/rsc'
 import Error from '@/app/error'
+import CustomLink from '@/hooks/MDXCustomLinkStyle'
 
 export default async function ProjectDetailsContent({ slug }: { slug: string }) {
     const param = await slug
@@ -49,6 +50,9 @@ export default async function ProjectDetailsContent({ slug }: { slug: string }) 
                     source={project.content}
                     options={options}
                     onError={Error}
+                    components={{
+                        a: CustomLink,
+                    }}
                 />
             </div>
 

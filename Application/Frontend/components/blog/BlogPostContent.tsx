@@ -1,4 +1,5 @@
 import Error from '@/app/error'
+import CustomLink from '@/hooks/MDXCustomLinkStyle'
 import { fetchFromApi } from '@/lib/api-fetcher'
 import { ApiResponse } from '@/types/ApiResponse'
 import { Divider } from '@heroui/react'
@@ -31,7 +32,7 @@ export default async function BlogPostContent({ slug }: { slug: string }) {
             remarkPlugins
         },
     };
-    
+
     return (
         <div className='mx-auto flex flex-col md:max-w-2xl'>
             <h1 className='mb-6 text-center text-3xl font-bold'>{post.title}</h1>
@@ -51,6 +52,9 @@ export default async function BlogPostContent({ slug }: { slug: string }) {
                     source={post.mdxContent}
                     options={options}
                     onError={Error}
+                    components={{
+                        a: CustomLink,
+                    }}
                 />
             </div>
         </div>
