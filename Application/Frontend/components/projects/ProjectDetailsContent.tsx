@@ -44,7 +44,7 @@ export default async function ProjectDetailsContent({ slug }: { slug: string }) 
         <div className='mx-auto flex flex-col md:max-w-2xl'>
             <h1 className='mb-6 text-center text-3xl font-bold'>{project.title}</h1>
             <Divider className='mb-8' />
-            <div className='mb-6 w-full text-lg whitespace-pre-line'>
+            <div className='mb-6 prose dark:prose-invert'>
                 <MDXRemote
                     source={project.content}
                     options={options}
