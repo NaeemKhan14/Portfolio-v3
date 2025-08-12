@@ -128,7 +128,7 @@ describe('ProjectsList', () => {
     await ProjectsList({ currentPage: 2, limit: 6 })
     
     expect(mockFetchFromApi).toHaveBeenCalledWith(
-      '/projects?sort=createdAt&page=2&limit=6'
+      '/projects?sort=-createdAt&page=2&limit=6'
     )
   })
 })
