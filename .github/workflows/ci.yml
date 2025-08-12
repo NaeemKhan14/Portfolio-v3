@@ -1,0 +1,76 @@
+name: CI - build, test, build & push Docker images
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FRONTEND_REPO: naeemkhan14/portfolio-frontend
+  BACKEND_REPO: naeemkhan14/portfolio-backend
+  FRONTEND_CONTEXT: ./Application/Frontend
+  BACKEND_CONTEXT: ./Application/Backend
+  FRONTEND_DOCKERFILE: ./Application/Frontend/Docker/Prod/Dockerfile-prod
+  BACKEND_DOCKERFILE: ./Application/Backend/Docker/Prod/Dockerfile-prod
+
+jobs:
+  build-test-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node 22 (for frontend tests & build)
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install, test and build frontend
+        working-directory: ${{ env.FRONTEND_CONTEXT }}
+        run: |
+          npm ci
+          npm test
+          npm run build
+
+      - name: Setup Node 22 (for backend build)
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install and build backend
+        working-directory: ${{ env.BACKEND_CONTEXT }}
+        run: |
+          npm ci
+          npm run build
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & push frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.FRONTEND_CONTEXT }}
+          file: ${{ env.FRONTEND_DOCKERFILE }}
+          push: true
+          tags: |
+            ${{ env.FRONTEND_REPO }}:latest
+            ${{ env.FRONTEND_REPO }}:${{ github.sha }}
+          platforms: linux/amd64
+
+      - name: Build & push backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.BACKEND_CONTEXT }}
+          file: ${{ env.BACKEND_DOCKERFILE }}
+          push: true
+          tags: |
+            ${{ env.BACKEND_REPO }}:latest
+            ${{ env.BACKEND_REPO }}:${{ github.sha }}
+          platforms: linux/amd64
