@@ -13,7 +13,7 @@ export default async function ProjectsList({
 }) {
 
   try {
-    const data = await fetchFromApi<ApiResponse<ProjectList>>(`/projects?sort=createdAt&page=${currentPage}&limit=${limit}`)
+    const data = await fetchFromApi<ApiResponse<ProjectList>>(`/projects?sort=-createdAt&page=${currentPage}&limit=${limit}`)
     const { docs: projects, totalPages } = data
 
     if (currentPage > totalPages) notFound()
