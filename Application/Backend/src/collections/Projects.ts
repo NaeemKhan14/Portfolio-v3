@@ -26,8 +26,11 @@ const Projects: CollectionConfig = {
     },
     {
       name: 'content',
-      type: 'textarea',
+      type: 'code',
       required: true,
+      admin: {
+        language: 'mdx',
+      },
     },
     {
       name: 'images',

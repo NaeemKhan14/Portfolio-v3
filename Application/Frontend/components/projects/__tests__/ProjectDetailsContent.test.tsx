@@ -21,6 +21,11 @@ jest.mock('@/components/projects/ImageGallery', () => ({
     ),
 }))
 
+jest.mock('next-mdx-remote-client/rsc', () => ({
+  MDXRemote: ({ source }: any) => <div>{source}</div>,
+}))
+
+
 const mockProject: Project = {
     id: 'proj-1',
     slug: 'test-project',

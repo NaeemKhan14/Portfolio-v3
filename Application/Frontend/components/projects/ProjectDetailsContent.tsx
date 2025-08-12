@@ -4,6 +4,8 @@ import { Divider } from '@heroui/react'
 import ImageGallery from './ImageGallery'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { MDXRemote, MDXRemoteOptions } from 'next-mdx-remote-client/rsc'
+import Error from '@/app/error'
 
 export default async function ProjectDetailsContent({ slug }: { slug: string }) {
     const param = await slug
@@ -13,6 +15,23 @@ export default async function ProjectDetailsContent({ slug }: { slug: string }) 
     const project = data?.docs?.[0]
 
     if (!project) return notFound()
+
+    let remarkPlugins = []
+
+    // Jest breaks the test as the library used in this is pure JS, so to prevent this
+    // import from loading when tests are running, we use this method. The env
+    // JEST_WORKER_ID is created when jest runs the tests, so we only load this library
+    // when this env is not present
+    if (!process.env.JEST_WORKER_ID) {
+        const { remarkResolveCmsImages } = await import('@/lib/remark-resolve-cms-images')
+        remarkPlugins.push(remarkResolveCmsImages)
+    }
+
+    const options: MDXRemoteOptions = {
+        mdxOptions: {
+            remarkPlugins
+        },
+    };
 
     const images = Array.isArray(project.images)
         ? project.images.map((img) => ({
@@ -26,7 +45,11 @@ export default async function ProjectDetailsContent({ slug }: { slug: string }) 
             <h1 className='mb-6 text-center text-3xl font-bold'>{project.title}</h1>
             <Divider className='mb-8' />
             <div className='mb-6 w-full text-lg whitespace-pre-line'>
-                {project.content}
+                <MDXRemote
+                    source={project.content}
+                    options={options}
+                    onError={Error}
+                />
             </div>
 
             {project.github_link?.trim() && (
