@@ -29,9 +29,10 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Run tests
+      - name: Install and run tests
         working-directory: ${{ env.FRONTEND_CONTEXT }}
         run: |
+          npm ci
           npm test
           
       - name: Login to Docker Hub
