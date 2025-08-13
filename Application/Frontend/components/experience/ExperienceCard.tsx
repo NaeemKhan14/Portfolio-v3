@@ -11,7 +11,7 @@ export default function ExperienceCard() {
 
   return (
     <section className='py-8'>
-      <div className='mx-auto mb-10 max-w-3xl px-6'>
+      <div className='mx-auto mb-10 max-w-3xl md:px-6'>
         <h2 className='mb-8 text-center text-3xl font-bold text-gray-900 dark:text-white'>
           Education & Experience
         </h2>
