@@ -21,6 +21,9 @@ export const CertificateCard: React.FC<Certificate> = ({
   credential_id,
 }) => {
   const isCertification = type === 'certification'
+  const safeLogo = logo ?? ''
+  const safeLink = link ?? '#'
+  const hasMaster = typeof credential_id === 'string' && credential_id.includes('Master')
 
   return (
     <Card
@@ -51,7 +54,7 @@ export const CertificateCard: React.FC<Certificate> = ({
         className={`absolute top-4 right-4 transform opacity-10 transition-all duration-400 group-hover:scale-110 group-hover:opacity-70 ${isCertification ? 'opacity-20 group-hover:opacity-90' : ''}`}
       >
         <Image
-          src={logo}
+          src={safeLogo}
           alt={`${issuer} logo`}
           width={80}
           height={80}
@@ -62,7 +65,7 @@ export const CertificateCard: React.FC<Certificate> = ({
       <CardHeader className='flex items-center gap-4'>
         {/* Logo aligned to the left */}
         <Image
-          src={logo}
+          src={safeLogo}
           alt={`${issuer} logo`}
           width={48}
           height={48}
@@ -102,11 +105,12 @@ export const CertificateCard: React.FC<Certificate> = ({
           </span>
         </div>
 
-        {credential_id.includes('Master')
-          ? <span className='font-mono'>{credential_id}</span>
-          : <p className='mb-3 text-xs text-gray-500 dark:text-gray-400'>
+        {hasMaster
+          ? (<span className='font-mono'>{credential_id}</span>)
+          : (<p className='mb-3 text-xs text-gray-500 dark:text-gray-400'>
             Credential ID: <span className='font-mono'>{credential_id}</span>
-          </p>}
+          </p>)
+        }
       </CardBody>
 
       <Divider
@@ -115,7 +119,7 @@ export const CertificateCard: React.FC<Certificate> = ({
 
       <CardFooter className='justify-center'>
         <Link
-          href={link}
+          href={safeLink}
           isExternal
           className={`text-sm font-medium hover:underline ${isCertification
             ? 'text-warning-600 dark:text-warning-400'
