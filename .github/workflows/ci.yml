@@ -50,6 +50,8 @@ jobs:
             ${{ env.FRONTEND_REPO }}:latest
             ${{ env.FRONTEND_REPO }}:${{ github.sha }}
           platforms: linux/amd64
+          build-args: |
+            CMS_INTERNAL_URL=${{ secrets.CMS_INTERNAL_URL }}
 
       - name: Build & push backend image
         uses: docker/build-push-action@v6
