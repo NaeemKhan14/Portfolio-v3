@@ -2,11 +2,13 @@ services:
   frontend:
     container_name: portfolio-frontend
     image: naeemkhan14/portfolio-frontend:latest
+    env_file:
+      - .env
     build:
       context: ../../
       dockerfile: Docker/Prod/Dockerfile-prod
-    env_file:
-      - .env.production
+      args:
+        CMS_INTERNAL_URL: ${CMS_INTERNAL_URL}
     restart: always
     ports:
       - 3501:3501

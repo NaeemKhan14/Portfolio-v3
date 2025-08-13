@@ -16,6 +16,8 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ARG CMS_INTERNAL_URL
+ENV CMS_INTERNAL_URL=$CMS_INTERNAL_URL
 RUN npm run build
 
 # 3. Production image, copy all the files and run next
