@@ -55,7 +55,7 @@ export default function AboutSection() {
                 </Link>
               </div>
 
-              <div className='grid w-full grid-cols-2 gap-3 md:grid-cols-1'>
+              <div className='grid w-full grid-cols-1 gap-3 justify-items-center'>
                 <DownloadButton
                   label='Cybersecurity CV'
                   filename='Naeem Khan CV (Cyber Security).pdf'

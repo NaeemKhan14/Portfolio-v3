@@ -35,7 +35,8 @@ export default function DownloadButton({ label, filename }: { label: string, fil
       onPress={handleDownload}
       isLoading={loading}
       color='danger'
-      className='bg-danger rounded py-2.5 text-center text-sm text-white transition-colors hover:bg-pink-300 dark:hover:bg-pink-900'
+      size='md'
+      className='bg-danger rounded text-center text-sm text-white transition-colors hover:bg-pink-300 dark:hover:bg-pink-900 w-full max-w-[200px] md:max-w-[230px]'
     >
       {label}
     </Button>
