@@ -6,6 +6,7 @@ import { Divider } from '@heroui/react'
 import { format } from 'date-fns'
 import { MDXRemote, MDXRemoteOptions } from "next-mdx-remote-client/rsc"
 import { notFound } from 'next/navigation'
+import rehypePrettyCode from "rehype-pretty-code"
 
 export default async function BlogPostContent({ slug }: { slug: string }) {
     const param = await slug
@@ -18,6 +19,11 @@ export default async function BlogPostContent({ slug }: { slug: string }) {
     if (!post) { return notFound() }
     let remarkPlugins = []
 
+    /** @type {import('rehype-pretty-code').Options} */
+    const prettyCodeOptions = {
+        theme: "github-dark-default",
+    };
+
     // Jest breaks the test as the library used in this is pure JS, so to prevent this
     // import from loading when tests are running, we use this method. The env
     // JEST_WORKER_ID is created when jest runs the tests, so we only load this library
@@ -29,7 +35,8 @@ export default async function BlogPostContent({ slug }: { slug: string }) {
 
     const options: MDXRemoteOptions = {
         mdxOptions: {
-            remarkPlugins
+            remarkPlugins,
+            rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]]
         },
     };
 

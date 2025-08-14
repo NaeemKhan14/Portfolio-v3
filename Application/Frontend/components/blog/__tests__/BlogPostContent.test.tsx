@@ -15,6 +15,11 @@ jest.mock('next-mdx-remote-client/rsc', () => ({
   MDXRemote: ({ source }: any) => <div>{source}</div>,
 }))
 
+jest.mock('rehype-pretty-code', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
 const mockCategory: BlogPostCategory = {
   id: 'cat-1',
   name: 'Technology',
