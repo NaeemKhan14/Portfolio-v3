@@ -28,7 +28,7 @@ services:
     volumes:
       - /mnt/user/appdata/portfolio-v3/media:/app/media
     ports:
-    - '127.0.0.1:3001:3001'
+    - '192.168.178.129:3001:3001'
     - '10.253.0.1:4001:3001'
     networks:
       - portfolio-network-prod
