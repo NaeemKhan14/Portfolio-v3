@@ -31,7 +31,7 @@ describe('AboutSection', () => {
 
   // 3. Tagline chip
   test('renders tagline chip', () => {
-    expect(screen.getByText('SOC Analyst & Software Dev')).toBeInTheDocument()
+    expect(screen.getByText('Junior SOC Analyst')).toBeInTheDocument()
   })
 
   // 4. Social links
@@ -45,17 +45,15 @@ describe('AboutSection', () => {
 
   // 5. CV links
   test('renders CV download links', () => {
-    const cyberCV = screen.getByRole('button', { name: 'Cybersecurity CV' })
-    const devCV = screen.getByRole('button', { name: 'Software Developer CV' })
+    const cyberCV = screen.getByRole('button', { name: 'Download My CV' })
 
     expect(cyberCV).toBeInTheDocument()
-    expect(devCV).toBeInTheDocument()
   })
 
   // 6. Introduction text
   test('renders introduction paragraph', () => {
     const intro = screen.getByText(
-      /Cybersecurity specialist with software development expertise/i,
+      /I build and defend real-world environments using Cloudflare, Docker and much more./i,
     )
     expect(intro).toBeInTheDocument()
   })
@@ -68,9 +66,9 @@ describe('AboutSection', () => {
     expect(chips.length).toBeGreaterThanOrEqual(3)
 
     expect(chipContainer).toContainElement(
-      screen.getByText('Software Development'),
+      screen.getByText('Threat Detection & Response'),
     )
+    expect(chipContainer).toContainElement(screen.getByText('Log Analysis'))
     expect(chipContainer).toContainElement(screen.getByText('SOC Analyst L1'))
-    expect(chipContainer).toContainElement(screen.getByText('CTF Competitor'))
   })
 })

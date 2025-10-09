@@ -30,7 +30,7 @@ export default function AboutSection() {
                   variant='solid'
                   className='dark:text-danger-300 absolute -bottom-3 left-1/2 -translate-x-1/2 text-sm font-medium text-pink-700'
                 >
-                  SOC Analyst & Software Dev
+                  Junior SOC Analyst
                 </Chip>
               </div>
             </div>
@@ -57,11 +57,7 @@ export default function AboutSection() {
 
               <div className='grid w-full grid-cols-1 gap-3 justify-items-center'>
                 <DownloadButton
-                  label='Cybersecurity CV'
-                  filename='Naeem Khan CV (Cyber Security).pdf'
-                />
-                <DownloadButton
-                  label='Software Developer CV'
+                  label='Download My CV'
                   filename='Naeem Khan CV.pdf'
                 />
               </div>
@@ -72,23 +68,26 @@ export default function AboutSection() {
           <div className='text-center lg:text-left'>
             <h1 className='text-danger mb-4 text-3xl font-bold'>Naeem Khan</h1>
             <p className='mb-6 leading-relaxed text-gray-700 dark:text-gray-300'>
-              Cybersecurity specialist with software development expertise,
-              focused on building secure systems and defending against modern
-              threats. Combining SOC analyst certification with engineering
-              experience to create resilient applications.
+              Hands-on cybersecurity professional with a background in software engineering, specializing in threat detection, incident response, and system hardening. I build and defend real-world environments using Cloudflare, Docker and much more.
             </p>
             <div
               role='list'
               className='flex flex-wrap justify-center gap-2 lg:justify-start'
             >
               <Chip role='listitem' color='danger' variant='bordered'>
-                Software Development
+                Threat Detection & Response
               </Chip>
               <Chip role='listitem' color='danger' variant='bordered'>
                 SOC Analyst L1
               </Chip>
               <Chip role='listitem' color='danger' variant='bordered'>
-                CTF Competitor
+                Network Defense
+              </Chip>
+              <Chip role='listitem' color='danger' variant='bordered'>
+                SIEM Engineering
+              </Chip>
+              <Chip role='listitem' color='danger' variant='bordered'>
+                Log Analysis
               </Chip>
             </div>
           </div>
