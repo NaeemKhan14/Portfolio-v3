@@ -5,9 +5,9 @@ const nextConfig = {
   },
   reactStrictMode: true,
   output: 'standalone',
+  reactCompiler: false,
   images: {
-    remotePatterns: [
-      {
+    remotePatterns: [{
         protocol: 'https',
         hostname: 'naeemkhan.dev',
         pathname: '/**',
@@ -18,12 +18,6 @@ const nextConfig = {
         pathname: '/api/media/file/**',
       },
     ],
-  },
-  experimental: {
-    reactCompiler: false,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
 }
 
