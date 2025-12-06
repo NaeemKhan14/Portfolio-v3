@@ -57,7 +57,7 @@ export default function ExperienceCard() {
                     strokeWidth={1}
                   />
                 ) : (
-                  <BriefcaseBusiness className='text-danger h-5 w-5 dark:text-white' />
+                  <BriefcaseBusiness className='text-danger h-5 w-5 dark:text-white' suppressHydrationWarning />
                 )}
               </div>
               {/* Content Card */}

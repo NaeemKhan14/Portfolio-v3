@@ -23,6 +23,7 @@ export default function AboutSection() {
                 height={200}
                 priority
                 unoptimized
+                suppressHydrationWarning 
               />
               <div className='text-center'>
                 <Chip
